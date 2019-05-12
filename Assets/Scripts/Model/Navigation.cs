@@ -1,0 +1,75 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Navigation : MonoBehaviour, INavigation
+{
+    public GameObject ScreenTree;
+    public Dictionary<string, GameObject> Screens;
+    public string FirstScreen;
+
+    [SerializeField]
+    private Stack<GameObject> _navigationStack;
+
+    private int _screenCount;
+
+    private void OnValidate()
+    {
+        _screenCount = ScreenTree.transform.childCount;
+        Screens = new Dictionary<string, GameObject>(_screenCount);
+        for (int i = 0; i < _screenCount; i++)
+        {
+            var screen = ScreenTree.transform.GetChild(i);
+            Screens.Add(screen.name, screen.gameObject);
+        }
+
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        _navigationStack = new Stack<GameObject>();
+
+        foreach (var screen in Screens.Values)
+        {
+            screen.SetActive(false);
+        }
+        Push(Screens[FirstScreen]);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public void Push(GameObject screen)
+    {
+        if (_navigationStack.Count > 0)
+        {
+            var lastScreen = _navigationStack.Peek();
+            lastScreen.SetActive(false);
+        }
+        _navigationStack.Push(screen);
+        screen.SetActive(true);
+    }
+
+    public void Push(string screenName)
+    {
+        var screen = Screens[screenName];
+        Push(screen);
+    }
+
+    public GameObject Pop()
+    {
+        GameObject lastScreen;
+        if (_navigationStack.Count > 1) {
+            lastScreen = _navigationStack.Peek();
+            lastScreen.SetActive(false);
+            _navigationStack.Pop();
+        }
+        lastScreen = _navigationStack.Peek();
+        lastScreen.SetActive(true);
+        return lastScreen;
+    }
+}

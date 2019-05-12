@@ -13,48 +13,37 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     private GameObject ParseClientGO;
     [SerializeField]
     private GameObject UniWebViewGO;
+    [SerializeField]
+    private GameObject NavigationGO;
 
     private IWebClient _parseClient;
     private UniWebView _uniWebView;
+    private INavigation _navigation;
 
-    public string text = "<Type some text>";
-    [Binding]
-    public String MyProperty
-    {
-        get
-        {
-            return text;
-        }
-        set
-        {
-            if (text == value)
-            {
-                return; // No change.
-            }
-
-            text = value;
-
-            OnPropertyChanged();
-        }
-    }
 
     private void Awake()
     {
         _parseClient = ParseClientGO.GetComponent<IWebClient>();
         _uniWebView = UniWebViewGO.GetComponent<UniWebView>();
+        _navigation = NavigationGO.GetComponent<INavigation>();
+
+        UniWebView.ClearCookies();
+
+        _uniWebView.OnMessageReceived += (webView, message) => {
+            print(message.RawMessage);
+            _uniWebView.Hide();
+        };
     }
 
     [Binding]
-    public void Send()
+    public void Login()
     {
-        MyProperty = UnityEngine.Random.Range(0, 100).ToString();
-        _parseClient.Send();
+        _navigation.Push("UserScreen");
+        //_uniWebView.Load("https://studygraph.step4.de/auth/login");
+        //_uniWebView.Show();
     }
 
-    [Binding]
-    public void toggleWebView() {
-        _uniWebView.Hide();
-    }
+
 
     public event PropertyChangedEventHandler PropertyChanged;
     protected void OnPropertyChanged([CallerMemberName] string propertyName = "") =>
