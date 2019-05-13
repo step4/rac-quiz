@@ -2,7 +2,7 @@
 {
     public enum AvatarStyle
     {
-        Circle,
+        //Circle,
         Transparent,
     }
 

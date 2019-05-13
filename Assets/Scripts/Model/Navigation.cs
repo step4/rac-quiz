@@ -6,7 +6,7 @@ public class Navigation : MonoBehaviour, INavigation
 {
     public GameObject ScreenTree;
     public Dictionary<string, GameObject> Screens;
-    public string FirstScreen;
+    public GameObject FirstScreen;
 
     [SerializeField]
     private Stack<GameObject> _navigationStack;
@@ -28,20 +28,10 @@ public class Navigation : MonoBehaviour, INavigation
     // Start is called before the first frame update
     void Start()
     {
-        _navigationStack = new Stack<GameObject>();
-
-        foreach (var screen in Screens.Values)
-        {
-            screen.SetActive(false);
-        }
-        Push(Screens[FirstScreen]);
+        SetRoot(FirstScreen);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    
 
     public void Push(GameObject screen)
     {
@@ -71,5 +61,22 @@ public class Navigation : MonoBehaviour, INavigation
         lastScreen = _navigationStack.Peek();
         lastScreen.SetActive(true);
         return lastScreen;
+    }
+
+    public void SetRoot(GameObject rootScreen)
+    {
+        _navigationStack = new Stack<GameObject>();
+
+        foreach (var screen in Screens.Values)
+        {
+            screen.SetActive(false);
+        }
+        Push(rootScreen);
+    }
+
+    public void SetRoot(string rootScreenName)
+    {
+        var screen = Screens[rootScreenName];
+        SetRoot(screen);
     }
 }

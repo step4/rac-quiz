@@ -7,43 +7,45 @@ using System.Runtime.CompilerServices;
 using UnityWeld.Binding;
 
 [Binding]
-public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
+public class StudyProgramScreenViewModel : MonoBehaviour, INotifyPropertyChanged
 {
     [SerializeField]
     private GameObject ParseClientGO;
     [SerializeField]
-    private GameObject UniWebViewGO;
-    [SerializeField]
     private GameObject NavigationGO;
 
     private IWebClient _parseClient;
-    private UniWebView _uniWebView;
     private INavigation _navigation;
 
 
     private void Awake()
     {
         _parseClient = ParseClientGO.GetComponent<IWebClient>();
-        _uniWebView = UniWebViewGO.GetComponent<UniWebView>();
         _navigation = NavigationGO.GetComponent<INavigation>();
 
-        UniWebView.ClearCookies();
-
-        _uniWebView.OnMessageReceived += (webView, message) => {
-            print(message.RawMessage);
-            _uniWebView.Hide();
-        };
     }
+
+    //private string _username;
+    //[Binding]
+    //public string Username
+    //{
+    //    get => _username;
+    //    set
+    //    {
+    //        if (value != _username)
+    //        {
+    //            _username = value;
+    //            OnPropertyChanged();
+    //        }
+    //    }
+    //}
 
     [Binding]
-    public void Login()
+    public async void SetStudyProgram()
     {
-        _navigation.Push("StudyProgramScreen");
-        //_uniWebView.Load("https://studygraph.step4.de/auth/login");
-        //_uniWebView.Show();
+        _navigation.SetRoot("UserScreen");
     }
-
-
+    
 
     public event PropertyChangedEventHandler PropertyChanged;
     protected void OnPropertyChanged([CallerMemberName] string propertyName = "") =>

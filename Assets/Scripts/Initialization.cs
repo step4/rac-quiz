@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
-using UnityEngine.Networking;
 using System.Net.Http;
 using TMPro;
+using UnityEngine.UI;
 
 public class Initialization : MonoBehaviour
 {
     public TextMeshProUGUI text;
+    public Image img;
     // Start is called before the first frame update
-    void Start()
+    async void Start()
     {
-      
+        //var imgData = await Avataaars.GetRandomImage(23);
+        //var dim = (int)Mathf.Sqrt(imgData.Length);
+        //Texture2D tex = new Texture2D(500, 530);
+        //ImageConversion.LoadImage(tex, imgData);
+        //var sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.zero);
+        //img.sprite = sprite;
     }
 
     // Update is called once per frame
