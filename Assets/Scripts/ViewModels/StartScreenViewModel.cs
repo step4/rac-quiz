@@ -26,7 +26,8 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         _parseClient = ParseClientGO.GetComponent<IWebClient>();
         _uniWebView = UniWebViewGO.GetComponent<UniWebView>();
         _navigation = NavigationGO.GetComponent<INavigation>();
-
+        _uniWebView.AddSslExceptionDomain("rheinahrcampus.de");
+        UniWebViewLogger.Instance.LogLevel = UniWebViewLogger.Level.Verbose;
         UniWebView.ClearCookies();
 
         _uniWebView.OnMessageReceived += (webView, message) => {
