@@ -1,4 +1,6 @@
-﻿public interface IWebClient
+﻿using System.Threading.Tasks;
+
+public interface IParseClient
 {
-    void Send();
+    
 }

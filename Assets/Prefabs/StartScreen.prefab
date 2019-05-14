@@ -322,8 +322,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 24e74a9d78f3e4aa2844bdfeafad4aa0, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 282764f9efad0ce489a62f30c19738b8, type: 3}
+  m_Type: 1
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
@@ -906,6 +906,7 @@ GameObject:
   - component: {fileID: 512931506579450906}
   - component: {fileID: 512931506579450905}
   - component: {fileID: 512931506579450901}
+  - component: {fileID: 1114690877}
   m_Layer: 5
   m_Name: StartScreen
   m_TagString: Untagged
@@ -1013,6 +1014,19 @@ MonoBehaviour:
   ParseClientGO: {fileID: 0}
   UniWebViewGO: {fileID: 511312913250812531}
   NavigationGO: {fileID: 0}
+  _config: {fileID: 0}
+--- !u!114 &1114690877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512931506579450904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80fa293718e0cd24297185212fa3c49d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &512931506801523620
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,16 +1325,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114939446366399424, guid: 7e3f16a6f6303419cbd9837f6c746de4,
         type: 3}
-      propertyPath: urlOnStart
-      value: https://studygraph.hs-koblenz.de/auth/login
-      objectReference: {fileID: 0}
-    - target: {fileID: 114939446366399424, guid: 7e3f16a6f6303419cbd9837f6c746de4,
-        type: 3}
-      propertyPath: showOnStart
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114939446366399424, guid: 7e3f16a6f6303419cbd9837f6c746de4,
-        type: 3}
       propertyPath: fullScreen
       value: 0
       objectReference: {fileID: 0}
@@ -1332,12 +1336,12 @@ PrefabInstance:
     - target: {fileID: 114939446366399424, guid: 7e3f16a6f6303419cbd9837f6c746de4,
         type: 3}
       propertyPath: frame.width
-      value: 828
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 114939446366399424, guid: 7e3f16a6f6303419cbd9837f6c746de4,
         type: 3}
       propertyPath: frame.height
-      value: 1000
+      value: 800
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e3f16a6f6303419cbd9837f6c746de4, type: 3}

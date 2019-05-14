@@ -14,13 +14,13 @@ public class StudyProgramScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     [SerializeField]
     private GameObject NavigationGO;
 
-    private IWebClient _parseClient;
+    private IParseClient _parseClient;
     private INavigation _navigation;
 
 
     private void Awake()
     {
-        _parseClient = ParseClientGO.GetComponent<IWebClient>();
+        _parseClient = ParseClientGO.GetComponent<IParseClient>();
         _navigation = NavigationGO.GetComponent<INavigation>();
 
     }

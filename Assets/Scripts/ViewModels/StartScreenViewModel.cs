@@ -15,25 +15,29 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     private GameObject UniWebViewGO;
     [SerializeField]
     private GameObject NavigationGO;
+    [SerializeField]
+    private ConfigSO _config;
 
-    private IWebClient _parseClient;
+    private IParseClient _parseClient;
     private UniWebView _uniWebView;
     private INavigation _navigation;
 
 
     private void Awake()
     {
-        _parseClient = ParseClientGO.GetComponent<IWebClient>();
+        _parseClient = ParseClientGO.GetComponent<IParseClient>();
         _uniWebView = UniWebViewGO.GetComponent<UniWebView>();
         _navigation = NavigationGO.GetComponent<INavigation>();
+
         _uniWebView.AddSslExceptionDomain("rheinahrcampus.de");
-        UniWebViewLogger.Instance.LogLevel = UniWebViewLogger.Level.Verbose;
+        //UniWebViewLogger.Instance.LogLevel = UniWebViewLogger.Level.Verbose;
         UniWebView.ClearCookies();
 
         _uniWebView.OnMessageReceived += (webView, message) => {
-            SesTok = message.Args["token"];
-            print(message.RawMessage);
+            _config.SessionToken =  message.Args["token"];
+
             _uniWebView.Hide();
+            OnLoginSuccess();
         };
     }
 
@@ -55,11 +59,22 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     [Binding]
     public void Login()
     {
-        //_navigation.Push("StudyProgramScreen");
-        _uniWebView.Load(SesTok);
+#if UNITY_EDITOR_WIN
+        _config.SessionToken = "r:5f5988739631c8c8d4088b50069b1023";
+        OnLoginSuccess();
+#elif UNITY_WEBGL
+        _config.SessionToken = "r:5f5988739631c8c8d4088b50069b1023";
+        OnLoginSuccess();
+#else
+        _uniWebView.Load(_parseClient.LoginUrl);
         _uniWebView.Show();
+#endif
     }
 
+    private void OnLoginSuccess()
+    {
+        _navigation.Push("StudyProgramScreen");
+    }
 
 
     public event PropertyChangedEventHandler PropertyChanged;

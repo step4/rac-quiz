@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParseClient : MonoBehaviour, IWebClient
+public class ParseClient : MonoBehaviour, IParseClient
 {
+    
+
     public void Send()
     {
         print("test");

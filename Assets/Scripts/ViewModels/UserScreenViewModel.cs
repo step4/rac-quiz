@@ -16,14 +16,14 @@ public class UserScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     [SerializeField]
     private GameObject NavigationGO;
 
-    private IWebClient _parseClient;
+    private IParseClient _parseClient;
     private INavigation _navigation;
     private IAvatarClient _avatarClient;
 
 
     private void Awake()
     {
-        _parseClient = ParseClientGO.GetComponent<IWebClient>();
+        _parseClient = ParseClientGO.GetComponent<IParseClient>();
         _navigation = NavigationGO.GetComponent<INavigation>();
         _avatarClient = AvatarClientGO.GetComponent<IAvatarClient>();
 
