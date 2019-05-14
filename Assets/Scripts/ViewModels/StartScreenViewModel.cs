@@ -30,17 +30,33 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         UniWebView.ClearCookies();
 
         _uniWebView.OnMessageReceived += (webView, message) => {
+            SesTok = message.Args["token"];
             print(message.RawMessage);
             _uniWebView.Hide();
         };
     }
 
+    private string _sesTok;
+    [Binding]
+    public string SesTok
+    {
+        get => _sesTok;
+        set
+        {
+            if (value!=_sesTok)
+            {
+                _sesTok = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
     [Binding]
     public void Login()
     {
-        _navigation.Push("StudyProgramScreen");
-        //_uniWebView.Load("https://studygraph.step4.de/auth/login");
-        //_uniWebView.Show();
+        //_navigation.Push("StudyProgramScreen");
+        _uniWebView.Load(SesTok);
+        _uniWebView.Show();
     }
 
 
