@@ -8,6 +8,7 @@ using System.Threading.Tasks;
     public class StudyProgram
     {
     public string name;
-    public string base64;
+    public string iconB64;
+    public string id;
     }
 

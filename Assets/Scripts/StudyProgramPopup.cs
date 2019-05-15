@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityWeld.Binding;
 
 public class StudyProgramPopup : MonoBehaviour
 {
@@ -15,13 +17,17 @@ public class StudyProgramPopup : MonoBehaviour
 
     [SerializeField]
     private int GridColumns;
+
+    [SerializeField]
+    private int LeftPadding;
+
+    [SerializeField]
+    private StudyProgramScreenViewModel ViewModel;
+
     public void Create(List<Faculty> faculties)
     {
         var parentRectTransform = (RectTransform)transform;
         var facultyInset = 0f;
-        var gridInsetX = 0f;
-        var gridInsetY = 0f;
-        var gridElementCount = 0;
 
         var studyProgramButtonHeight = ((RectTransform)StudyProgramPrefab.transform).rect.height;
         var headlineHeight = ((RectTransform)HeadlinePrefab.transform).rect.height;
@@ -31,34 +37,61 @@ public class StudyProgramPopup : MonoBehaviour
             GameObject facultyGO = new GameObject(faculty.name, typeof(RectTransform));
             var facultyRectTransform = (RectTransform)facultyGO.transform;
             facultyRectTransform.SetParent(parentRectTransform);
-
             var studyProgramCount = faculty.studyPrograms.Count;
-            var facultyHeight = headlineHeight + GridSpace + Mathf.Ceil((float)studyProgramCount / GridColumns) * (studyProgramButtonHeight + GridSpace);
-            print(facultyHeight);
 
+
+
+            var facultyHeight = headlineHeight + GridSpace + Mathf.Ceil((float)studyProgramCount / GridColumns) * (studyProgramButtonHeight + GridSpace);
             facultyRectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, facultyInset, facultyHeight);
             facultyRectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, parentRectTransform.rect.width);
 
             var headlineGO = Instantiate(HeadlinePrefab, facultyRectTransform);
             var textComponent = headlineGO.GetComponentInChildren<Text>();
+
+            GameObject studyProgramsGO = new GameObject("StudyPrograms", typeof(RectTransform), typeof(GridLayoutGroup));
+            var studyProgramsTransform = (RectTransform)studyProgramsGO.transform;
+            studyProgramsTransform.SetParent(facultyRectTransform);
+            studyProgramsTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, headlineHeight + GridSpace, facultyHeight - headlineHeight);
+            studyProgramsTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, facultyRectTransform.rect.width);
+
+            var studyProgramsGridLayout = studyProgramsGO.GetComponent<GridLayoutGroup>();
+            studyProgramsGridLayout.cellSize = new Vector2 { x = studyProgramButtonHeight, y = studyProgramButtonHeight };
+            studyProgramsGridLayout.spacing = new Vector2 { x = GridSpace, y = GridSpace };
+            studyProgramsGridLayout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            studyProgramsGridLayout.constraintCount = GridColumns;
+            studyProgramsGridLayout.padding = new RectOffset(LeftPadding, 0, 0, 0);
+
             textComponent.text = faculty.name;
 
             facultyInset += facultyHeight + GridSpace;
-            gridElementCount = 0;
-            gridInsetX = 0f;
-            gridInsetY = 0f;
+
             faculty.studyPrograms.ForEach(studyProgram =>
             {
-                var studyProgramGO = Instantiate(StudyProgramPrefab, facultyRectTransform);
-                gridElementCount++;
+                var studyProgramGO = Instantiate(StudyProgramPrefab, studyProgramsTransform);
                 var studyProgramRectTransform = (RectTransform)studyProgramGO.transform;
-                studyProgramRectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, headlineHeight + GridSpace + gridInsetY, studyProgramButtonHeight);
-                studyProgramRectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, GridSpace + gridInsetX, studyProgramButtonHeight);
-                gridInsetY = Mathf.Floor(gridElementCount / GridColumns) * (studyProgramButtonHeight + GridSpace);
-                gridInsetX = gridElementCount % GridColumns * (studyProgramButtonHeight + GridSpace);
 
                 studyProgramGO.name = studyProgram.name;
+
+                var studyProgramTextComponent = studyProgramGO.GetComponentInChildren<Text>();
+                studyProgramTextComponent.text = studyProgram.name;
+                var studyProgramImageComponents = studyProgramGO.GetComponentsInChildren<Image>();
+                var iconComponent = studyProgramImageComponents.Single(image =>image.transform.name == "Icon");
+                iconComponent.sprite = convertImageBase64ToSprite(studyProgram.iconB64);
+
+                var studyProgramButtonComponents = studyProgramGO.GetComponentInChildren<Button>();
+                studyProgramButtonComponents.onClick.AddListener(() => ViewModel.SetStudyProgram(studyProgram.id, studyProgram.name, iconComponent.sprite));
             });
-        }); ;
+        });
+    }
+
+    private Sprite convertImageBase64ToSprite(string base64)
+    {
+        base64 = base64.Substring(base64.IndexOf(',') + 1);
+        var base64EncodedBytes = Convert.FromBase64String(base64);
+
+        Texture2D tex = new Texture2D(500, 530);
+        ImageConversion.LoadImage(tex, base64EncodedBytes);
+        return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.zero);
+
     }
 }

@@ -17,6 +17,9 @@ public class StudyProgramScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     private IParseClient _parseClient;
     private INavigation _navigation;
 
+    [SerializeField]
+    private PlayerSettingsSO PlayerSettings;
+
     private bool popupCreated=false;
 
     private void Awake()
@@ -56,8 +59,11 @@ public class StudyProgramScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     //}
 
     [Binding]
-    public void SetStudyProgram()
+    public void SetStudyProgram(string id, string name, Sprite sprite)
     {
+        PlayerSettings.StudyProgram = name;
+        PlayerSettings.StudyProgramId = id;
+        PlayerSettings.StudyProgramSprite = sprite;
         _navigation.SetRoot("UserScreen");
     }
     

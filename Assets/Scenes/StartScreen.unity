@@ -1724,6 +1724,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ParseClientGO: {fileID: 257642490}
   NavigationGO: {fileID: 216778754}
+  PlayerSettings: {fileID: 11400000, guid: 0dece06fcd1060b4facacc1156fcc507, type: 2}
 --- !u!114 &1181935942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2804,7 +2805,10 @@ MonoBehaviour:
     type: 3}
   StudyProgramPrefab: {fileID: 5598296947217047961, guid: 0579a13b4a0d3f341903deee0140c076,
     type: 3}
-  GridSpace: 10
+  GridSpace: 35
+  GridColumns: 3
+  LeftPadding: 50
+  ViewModel: {fileID: 1181935941}
 --- !u!1 &1918593287
 GameObject:
   m_ObjectHideFlags: 0
@@ -3527,6 +3531,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: dea6489a9972fac48bb6a9b5d04e0055,
         type: 2}
+    - target: {fileID: 470085948110741017, guid: 7e69b0f2370eb48979f15ff9c28d1b94,
+        type: 3}
+      propertyPath: showOnStart
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 470085948110741017, guid: 7e69b0f2370eb48979f15ff9c28d1b94,
+        type: 3}
+      propertyPath: fullScreen
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e69b0f2370eb48979f15ff9c28d1b94, type: 3}
 --- !u!224 &8877360748443173864
