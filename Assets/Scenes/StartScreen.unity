@@ -2220,8 +2220,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1080
-    height: 800
+    width: 0
+    height: 0
   referenceRectTransform: {fileID: 0}
 --- !u!4 &1130931012
 Transform:

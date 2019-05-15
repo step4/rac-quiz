@@ -29,9 +29,10 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         _uniWebView = UniWebViewGO.GetComponent<UniWebView>();
         _navigation = NavigationGO.GetComponent<INavigation>();
 
-        _uniWebView.AddSslExceptionDomain("rheinahrcampus.de");
+
         //UniWebViewLogger.Instance.LogLevel = UniWebViewLogger.Level.Verbose;
         UniWebView.ClearCookies();
+       
 
         _uniWebView.OnMessageReceived += (webView, message) => {
             _config.SessionToken =  message.Args["token"];
@@ -66,6 +67,7 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         _config.SessionToken = "r:5f5988739631c8c8d4088b50069b1023";
         OnLoginSuccess();
 #else
+        _uniWebView.AddSslExceptionDomain("rheinahrcampus.de");
         _uniWebView.Load(_config.LoginUrl);
         _uniWebView.Show();
 #endif
