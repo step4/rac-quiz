@@ -44,7 +44,7 @@ public class Avataaars
         return str;
     }
 
-    public async Task<byte[]> GetRandomImage(int width)
+    public async Task<(byte[],string)> GetRandomImage(int width)
     {
 
         // Call asynchronous network methods in a try/catch block to handle exceptions
@@ -58,7 +58,7 @@ public class Avataaars
             // Above three lines can be replaced with new helper method below
             // string responseBody = await client.GetStringAsync(uri);
 
-            return image;
+            return (image,url);
         }
         catch (HttpRequestException e)
         {

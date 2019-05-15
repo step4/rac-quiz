@@ -10,9 +10,9 @@ public class ParseClient : MonoBehaviour, IParseClient
 {
     private HttpClient _client = new HttpClient();
     [SerializeField]
-    private ConfigSO config;
+    private ConfigSO config = default;
 
-    private async void Awake()
+    private void Awake()
     {
         //_client.BaseAddress = new Uri(config.ParseApi);
         _client.DefaultRequestHeaders.Accept.Clear();
@@ -33,9 +33,16 @@ public class ParseClient : MonoBehaviour, IParseClient
         var studyProgramsJson = await response.Content.ReadAsStringAsync();
 
 
-        print(studyProgramsJson);
         var studyProgramsResponse = JsonConvert.DeserializeObject<ParseListResponse<Faculty>>(studyProgramsJson);
-        print(studyProgramsResponse);
         return studyProgramsResponse.result;
+    }
+
+    public async Task SetStudyProgram(string id)
+    {
+        var studyProgramId = new StudyProgramId() { id = id };
+        var json = JsonConvert.SerializeObject(studyProgramId);
+
+        HttpResponseMessage response = await _client.PostAsync($"{config.ParseApi}/functions/set_studyprogram", new StringContent(json));
+        response.EnsureSuccessStatusCode();
     }
 }

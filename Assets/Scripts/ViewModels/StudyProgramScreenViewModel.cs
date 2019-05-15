@@ -10,15 +10,15 @@ using UnityWeld.Binding;
 public class StudyProgramScreenViewModel : MonoBehaviour, INotifyPropertyChanged
 {
     [SerializeField]
-    private GameObject ParseClientGO;
+    private GameObject ParseClientGO = default;
     [SerializeField]
-    private GameObject NavigationGO;
+    private GameObject NavigationGO = default;
 
     private IParseClient _parseClient;
     private INavigation _navigation;
 
     [SerializeField]
-    private PlayerSettingsSO PlayerSettings;
+    private PlayerSettingsSO PlayerSettings = default;
 
     private bool popupCreated=false;
 
@@ -43,27 +43,15 @@ public class StudyProgramScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         var popup = GetComponentInChildren<StudyProgramPopup>();
         popup.Create(faculties);
     }
-    //private string _username;
-    //[Binding]
-    //public string Username
-    //{
-    //    get => _username;
-    //    set
-    //    {
-    //        if (value != _username)
-    //        {
-    //            _username = value;
-    //            OnPropertyChanged();
-    //        }
-    //    }
-    //}
 
     [Binding]
-    public void SetStudyProgram(string id, string name, Sprite sprite)
+    public async void SetStudyProgram(string id, string name,string shortName, Sprite sprite)
     {
         PlayerSettings.StudyProgram = name;
+        PlayerSettings.StudyProgramShort = shortName;
         PlayerSettings.StudyProgramId = id;
         PlayerSettings.StudyProgramSprite = sprite;
+        await _parseClient.SetStudyProgram(id);
         _navigation.SetRoot("UserScreen");
     }
     

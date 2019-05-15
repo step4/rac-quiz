@@ -10,16 +10,18 @@ using UnityWeld.Binding;
 public class UserScreenViewModel : MonoBehaviour, INotifyPropertyChanged
 {
     [SerializeField]
-    private GameObject ParseClientGO;
+    private GameObject ParseClientGO = default;
     [SerializeField]
-    private GameObject AvatarClientGO;
+    private GameObject AvatarClientGO = default;
     [SerializeField]
-    private GameObject NavigationGO;
+    private GameObject NavigationGO = default;
 
     private IParseClient _parseClient;
     private INavigation _navigation;
     private IAvatarClient _avatarClient;
 
+    [SerializeField]
+    private PlayerSettingsSO PlayerSettings = default;
 
     private void Awake()
     {
@@ -27,8 +29,23 @@ public class UserScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         _navigation = NavigationGO.GetComponent<INavigation>();
         _avatarClient = AvatarClientGO.GetComponent<IAvatarClient>();
 
-        Username = "Chris";
-        SetAvatar();
+        if (PlayerSettings.Avatar==null)
+        {
+            SetAvatar();
+        }
+        
+    }
+
+    private void OnEnable()
+    {
+        _loadPlayerSettings();
+    }
+
+    private void _loadPlayerSettings()
+    {
+        AvatarSprite = PlayerSettings.Avatar;
+        StudyProgramShort = PlayerSettings.StudyProgramShort;
+        StudyProgramSprite = PlayerSettings.StudyProgramSprite;
     }
 
     private Sprite _avatarSprite;
@@ -61,16 +78,49 @@ public class UserScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         }
     }
 
+    private string _studyProgramShort;
+    [Binding]
+    public string StudyProgramShort
+    {
+        get => _studyProgramShort;
+        set
+        {
+            if (value != _studyProgramShort)
+            {
+                _studyProgramShort = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    private Sprite _studyProgramSprite;
+    [Binding]
+    public Sprite StudyProgramSprite
+    {
+        get => _studyProgramSprite;
+        set
+        {
+            if (value != _studyProgramSprite)
+            {
+                _studyProgramSprite = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
     [Binding]
     public async void SetAvatar()
     {
-        var imgData = await _avatarClient.GetAvatar(1000);
         var width = 1000;
+        var (imgData,url) = await _avatarClient.GetAvatar(width);
         var height = imgData.Length / width;
         Texture2D tex = new Texture2D(width, height);
         ImageConversion.LoadImage(tex, imgData);
         var sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.zero);
         AvatarSprite = sprite;
+
+        PlayerSettings.Avatar = sprite;
+        PlayerSettings.AvatarUrl = url;
     }
 
     [Binding]

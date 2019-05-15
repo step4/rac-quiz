@@ -11,7 +11,7 @@ public class Initialization : MonoBehaviour
     public TextMeshProUGUI text;
     public Image img;
     // Start is called before the first frame update
-    async void Start()
+    void Start()
     {
         //var imgData = await Avataaars.GetRandomImage(23);
         //var dim = (int)Mathf.Sqrt(imgData.Length);

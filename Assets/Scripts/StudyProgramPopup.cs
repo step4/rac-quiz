@@ -8,21 +8,21 @@ using UnityWeld.Binding;
 public class StudyProgramPopup : MonoBehaviour
 {
     [SerializeField]
-    private GameObject HeadlinePrefab;
+    private GameObject HeadlinePrefab = default;
     [SerializeField]
-    private GameObject StudyProgramPrefab;
+    private GameObject StudyProgramPrefab = default;
 
     [SerializeField]
-    private float GridSpace;
+    private float GridSpace = default;
 
     [SerializeField]
-    private int GridColumns;
+    private int GridColumns = default;
 
     [SerializeField]
-    private int LeftPadding;
+    private int LeftPadding = default;
 
     [SerializeField]
-    private StudyProgramScreenViewModel ViewModel;
+    private StudyProgramScreenViewModel ViewModel = default;
 
     public void Create(List<Faculty> faculties)
     {
@@ -79,7 +79,7 @@ public class StudyProgramPopup : MonoBehaviour
                 iconComponent.sprite = convertImageBase64ToSprite(studyProgram.iconB64);
 
                 var studyProgramButtonComponents = studyProgramGO.GetComponentInChildren<Button>();
-                studyProgramButtonComponents.onClick.AddListener(() => ViewModel.SetStudyProgram(studyProgram.id, studyProgram.name, iconComponent.sprite));
+                studyProgramButtonComponents.onClick.AddListener(() => ViewModel.SetStudyProgram(studyProgram.id, studyProgram.name,studyProgram.shortName, iconComponent.sprite));
             });
         });
     }

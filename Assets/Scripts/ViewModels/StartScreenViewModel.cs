@@ -10,13 +10,13 @@ using UnityWeld.Binding;
 public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
 {
     [SerializeField]
-    private GameObject ParseClientGO;
+    private GameObject ParseClientGO = default;
     [SerializeField]
-    private GameObject UniWebViewGO;
+    private GameObject UniWebViewGO = default;
     [SerializeField]
-    private GameObject NavigationGO;
+    private GameObject NavigationGO=default;
     [SerializeField]
-    private ConfigSO _config;
+    private ConfigSO _config = default;
 
     private IParseClient _parseClient;
     private UniWebView _uniWebView;
