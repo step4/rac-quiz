@@ -22,9 +22,10 @@ public class ConfigSO : ScriptableObject
         }
     }
 
-    [SerializeField]
-    private string _loginUrl;
-    public string LoginUrl { get => _loginUrl; set => _loginUrl = value; }
+
+    public string LoginUrl;
 
     public string ParseApi;
+
+    public string ParseAppId;
 }

@@ -17,14 +17,29 @@ public class StudyProgramScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     private IParseClient _parseClient;
     private INavigation _navigation;
 
+    private bool popupCreated=false;
 
     private void Awake()
     {
         _parseClient = ParseClientGO.GetComponent<IParseClient>();
         _navigation = NavigationGO.GetComponent<INavigation>();
-
+        
     }
 
+    void OnEnable() {
+        if (!popupCreated)
+        {
+            populateScrollView();
+            popupCreated = true;
+        }
+    }
+
+    async void populateScrollView()
+    {
+        var faculties = await _parseClient.GetStudyPrograms();
+        var popup = GetComponentInChildren<StudyProgramPopup>();
+        popup.Create(faculties);
+    }
     //private string _username;
     //[Binding]
     //public string Username
@@ -41,7 +56,7 @@ public class StudyProgramScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     //}
 
     [Binding]
-    public async void SetStudyProgram()
+    public void SetStudyProgram()
     {
         _navigation.SetRoot("UserScreen");
     }
