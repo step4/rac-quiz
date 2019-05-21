@@ -36,15 +36,14 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         //UniWebViewLogger.Instance.LogLevel = UniWebViewLogger.Level.Verbose;
         UniWebView.ClearCookies();
 
-
+        _parseClient.SetSessionToken(_config.SessionToken);
         _uniWebView.OnMessageReceived += (webView, message) =>
         {
-            Debug.Log(message.RawMessage);
-            Debug.Log(message.Args["token"]);
+
             _config.SessionToken = message.Args["token"];
-            print(_config.SessionToken);
             _uniWebView.Hide();
-            OnLoginSuccess();
+            _parseClient.SetSessionToken(_config.SessionToken);
+            CheckSession();
         };
     }
 
@@ -72,19 +71,35 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         _config.SessionToken = "r:566298103fcadb938c9aafb3d0551071";
         OnLoginSuccess();
 #else
-        _uniWebView.AddSslExceptionDomain("rheinahrcampus.de");
-        _uniWebView.Load(_config.LoginUrl);
-        _uniWebView.Show();
+        CheckSession();
 #endif
     }
 
-    private async void OnLoginSuccess()
+    private void OpenWebViewLogin()
     {
-        var isSuccess = await FetchPlayer();
-        if (isSuccess)
-            _navigation.Push("UserScreen");
-        else
-            _navigation.Push("StudyProgramScreen");
+        _uniWebView.AddSslExceptionDomain("rheinahrcampus.de");
+        _uniWebView.Load(_config.LoginUrl);
+        _uniWebView.Show();
+    }
+
+    private async void CheckSession()
+    {
+        try
+        {
+            var isSuccess = await FetchPlayer();
+            if (isSuccess)
+                _navigation.Push("UserScreen");
+            else
+                _navigation.Push("StudyProgramScreen");
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex);
+            Debug.LogError("Open WebLogin");
+            OpenWebViewLogin();
+        }
+
+
     }
 
     public async Task<bool> FetchPlayer()

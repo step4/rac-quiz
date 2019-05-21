@@ -27,9 +27,11 @@ public class ParseClient : MonoBehaviour, IParseClient
 
         _client.DefaultRequestHeaders.Add("X-Parse-Application-Id", _config.ParseAppId);
 
-        print("Session now: "+_config.SessionToken);
-        if (_config.SessionToken != "")
-            _client.DefaultRequestHeaders.Add("X-Parse-Session-Token", _config.SessionToken);
+    }
+
+    public void SetSessionToken(string token)
+    {
+        _client.DefaultRequestHeaders.Add("X-Parse-Session-Token", token);
     }
 
     public async Task<List<Faculty>> GetStudyPrograms()
@@ -55,6 +57,7 @@ public class ParseClient : MonoBehaviour, IParseClient
 
     public async Task<PlayerConfig> GetUserMe()
     {
+        print(_client.DefaultRequestHeaders);
         HttpResponseMessage response = await _client.PostAsync($"{_config.ParseApi}/functions/get_me", new StringContent(""));
         response.EnsureSuccessStatusCode();
         var getMeJson = await response.Content.ReadAsStringAsync();
