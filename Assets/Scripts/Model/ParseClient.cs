@@ -31,6 +31,7 @@ public class ParseClient : MonoBehaviour, IParseClient
 
     public void SetSessionToken(string token)
     {
+        _client.DefaultRequestHeaders.Remove("X-Parse-Session-Token");
         _client.DefaultRequestHeaders.Add("X-Parse-Session-Token", token);
     }
 

@@ -66,10 +66,9 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     public void Login()
     {
 #if UNITY_EDITOR_WIN
-        OnLoginSuccess();
+        CheckSession();
 #elif UNITY_WEBGL
-        _config.SessionToken = "r:566298103fcadb938c9aafb3d0551071";
-        OnLoginSuccess();
+        CheckSession();
 #else
         CheckSession();
 #endif

@@ -128,6 +128,12 @@ public class UserScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     {
         _navigation.Push("SettingsScreen");
     }
+
+    [Binding]
+    public void OpenGamePopup()
+    {
+        _navigation.PushPopup("GamePopup");
+    }
     
 
     public event PropertyChangedEventHandler PropertyChanged;

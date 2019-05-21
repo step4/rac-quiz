@@ -13,7 +13,7 @@ public class Navigation : MonoBehaviour, INavigation
 
     private int _screenCount;
 
-    private void OnValidate()
+    private void OnEnable()
     {
         _screenCount = ScreenTree.transform.childCount;
         Screens = new Dictionary<string, GameObject>(_screenCount);
@@ -44,6 +44,18 @@ public class Navigation : MonoBehaviour, INavigation
         screen.SetActive(true);
     }
 
+    public void PushPopup(GameObject screen)
+    {
+        _navigationStack.Push(screen);
+        screen.SetActive(true);
+    }
+
+    public void PushPopup(string screenName)
+    {
+        var screen = Screens[screenName];
+        PushPopup(screen);
+    }
+
     public void Push(string screenName)
     {
         var screen = Screens[screenName];
@@ -62,6 +74,20 @@ public class Navigation : MonoBehaviour, INavigation
         lastScreen.SetActive(true);
         return lastScreen;
     }
+
+    public GameObject PopPopup()
+    {
+        GameObject lastScreen;
+        if (_navigationStack.Count > 1)
+        {
+            lastScreen = _navigationStack.Peek();
+            lastScreen.SetActive(false);
+            _navigationStack.Pop();
+        }
+        lastScreen = _navigationStack.Peek();
+        return lastScreen;
+    }
+
 
     public void SetRoot(GameObject rootScreen)
     {
