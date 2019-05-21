@@ -2122,6 +2122,7 @@ MonoBehaviour:
   UniWebViewGO: {fileID: 1130931010}
   NavigationGO: {fileID: 216778754}
   _config: {fileID: 11400000, guid: dea6489a9972fac48bb6a9b5d04e0055, type: 2}
+  _playerConfig: {fileID: 11400000, guid: 0dece06fcd1060b4facacc1156fcc507, type: 2}
 --- !u!114 &1114690879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2405,7 +2406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ParseClientGO: {fileID: 257642490}
   NavigationGO: {fileID: 216778754}
-  PlayerSettings: {fileID: 11400000, guid: 0dece06fcd1060b4facacc1156fcc507, type: 2}
+  _playerConfig: {fileID: 11400000, guid: 0dece06fcd1060b4facacc1156fcc507, type: 2}
 --- !u!114 &1181935942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4864,11 +4865,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Navigation
       objectReference: {fileID: 0}
-    - target: {fileID: 1567312911224163401, guid: e20c5f2bcd4ed704cb6842e6f5a96f8e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1567312911224163400, guid: e20c5f2bcd4ed704cb6842e6f5a96f8e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5172,7 +5168,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: fd1ed8994e6528647aff64c3931947d4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1

@@ -6,7 +6,7 @@ using UnityEngine;
 public class AvatarClient : MonoBehaviour, IAvatarClient
 {
     private Avataaars avataaars;
-    public async Task<(byte[],string)> GetAvatar(int width)
+    public async Task<(byte[],string)> GetRandomAvatar(int width)
     {
         return await avataaars.GetRandomImage(width);
     }

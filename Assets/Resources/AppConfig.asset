@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54bb00019cb8cf646925bb1d131007bb, type: 3}
   m_Name: AppConfig
   m_EditorClassIdentifier: 
-  _sessionToken: r:5f5988739631c8c8d4088b50069b1023
+  _sessionToken: r:566298103fcadb938c9aafb3d0551071
   LoginUrl: https://rheinahrcampus.de/racmt4/auth/login
-  ParseApi: http://localhost:8080/api
+  ParseApi: https://rheinahrcampus.de/racmt4/api
   ParseAppId: hochschulQuiz

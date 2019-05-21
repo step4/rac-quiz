@@ -21,7 +21,7 @@ public class UserScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     private IAvatarClient _avatarClient;
 
     [SerializeField]
-    private PlayerSettingsSO PlayerSettings = default;
+    private PlayerConfigSO PlayerSettings = default;
 
     private void Awake()
     {
@@ -112,7 +112,7 @@ public class UserScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     public async void SetAvatar()
     {
         var width = 1000;
-        var (imgData,url) = await _avatarClient.GetAvatar(width);
+        var (imgData,url) = await _avatarClient.GetRandomAvatar(width);
         var height = imgData.Length / width;
         Texture2D tex = new Texture2D(width, height);
         ImageConversion.LoadImage(tex, imgData);

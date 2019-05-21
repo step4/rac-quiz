@@ -2,5 +2,5 @@
 
 public interface IAvatarClient
 {
-    Task<(byte[],string)> GetAvatar(int width);
+    Task<(byte[],string)> GetRandomAvatar(int width);
 }

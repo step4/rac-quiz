@@ -8,6 +8,7 @@ public class ConfigSO : ScriptableObject
     private void Awake()
     {
         SessionToken = PlayerPrefs.GetString("SESSION_TOKEN", "");
+        Debug.Log("session from pref: " + SessionToken);
     }
     [SerializeField]
     private string _sessionToken;
@@ -17,8 +18,11 @@ public class ConfigSO : ScriptableObject
         get => _sessionToken;
         set
         {
-            PlayerPrefs.SetString("SESSION_TOKEN", value);
-            _sessionToken = value;
+            if (_sessionToken != value)
+            {
+                PlayerPrefs.SetString("SESSION_TOKEN", value);
+                _sessionToken = value;
+            }
         }
     }
 
