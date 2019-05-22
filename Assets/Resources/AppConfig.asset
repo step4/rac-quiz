@@ -18,3 +18,4 @@ MonoBehaviour:
   ParseAppId: hochschulQuiz
   ShortGameCount: 2
   LongGameCount: 4
+  SecondsPerDifficulty: 0a000000140000001e000000

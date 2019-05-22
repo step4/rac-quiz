@@ -1,7 +1,9 @@
-﻿
-    public class GivenAnswer
-    {
+﻿using System;
+
+[Serializable]
+public class GivenAnswer
+{
     public string questionId;
     public bool correctlyAnswered;
-    }
+}
 

@@ -4,13 +4,15 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: TEX-Overlay
   m_Shader: {fileID: 4800000, guid: 8ee22294f578a944689574c3c6e58967, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -46,11 +48,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Font10:
-        m_Texture: {fileID: 2800000, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1d69ce5b39b918c4887bff5d53ea98d1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Font11:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Font12:
@@ -134,31 +136,31 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Font9:
-        m_Texture: {fileID: 2800000, guid: f93ebe3fc1c20b44091480f75dd023a3, type: 3}
+        m_Texture: {fileID: 2800000, guid: cdbeb218dc55241de9bd934340ff1ab5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FontA:
-        m_Texture: {fileID: 2800000, guid: aa99f385a97309a48828dd6055d6a235, type: 3}
+        m_Texture: {fileID: 2800000, guid: f93ebe3fc1c20b44091480f75dd023a3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FontB:
-        m_Texture: {fileID: 2800000, guid: ca6dba3a5fe888b4fbc60ef6886b5de3, type: 3}
+        m_Texture: {fileID: 2800000, guid: aa99f385a97309a48828dd6055d6a235, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FontC:
-        m_Texture: {fileID: 2800000, guid: c6e7abbe58b7a0949a3ce8a8c8e74bac, type: 3}
+        m_Texture: {fileID: 2800000, guid: ca6dba3a5fe888b4fbc60ef6886b5de3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FontD:
-        m_Texture: {fileID: 2800000, guid: 5e02e88f0626dba4096705bbf8db8fe9, type: 3}
+        m_Texture: {fileID: 2800000, guid: c6e7abbe58b7a0949a3ce8a8c8e74bac, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FontE:
-        m_Texture: {fileID: 2800000, guid: 9d8a4589042bd094391c7b75fa49e27d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5e02e88f0626dba4096705bbf8db8fe9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FontF:
-        m_Texture: {fileID: 2800000, guid: 1d69ce5b39b918c4887bff5d53ea98d1, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9d8a4589042bd094391c7b75fa49e27d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _GradTex:

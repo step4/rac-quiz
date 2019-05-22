@@ -37,4 +37,5 @@ public class ConfigSO : ScriptableObject
     [Header("Game Settings")]
     public int ShortGameCount;
     public int LongGameCount;
+    public List<int> SecondsPerDifficulty;
 }

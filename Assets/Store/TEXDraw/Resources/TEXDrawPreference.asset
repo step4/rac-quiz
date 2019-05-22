@@ -3,18 +3,19 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f181994389177aa4e8807fb9cd14776f, type: 3}
   m_Name: TEXDrawPreference
   m_EditorClassIdentifier: 
-  MainFolderPath: Assets/TEXDraw
+  MainFolderPath: Assets\Store\TEXDraw
   IncludeMathSlot: 1
   header_mathCount: 8
-  header_userCount: 16
+  header_userCount: 17
   editorReloading: 0
   defaultMaterial: {fileID: 2100000, guid: 9d473469be5a9fc448e911362f79b8a9, type: 2}
   fonts:
@@ -27,6 +28,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c69b39726b7dc4c4587ddb4473711fa9, type: 2}
   - {fileID: 11400000, guid: a599888a47ccd9848b65c386385032b3, type: 2}
   - {fileID: 11400000, guid: 3a7724c62c5a4a4469f53a7de7fc1d11, type: 2}
+  - {fileID: 11400000, guid: eb30985b13ce20848aa354a1970961f8, type: 2}
   - {fileID: 11400000, guid: e52d6a9245a3187458f89fd0f589cb54, type: 2}
   - {fileID: 11400000, guid: 4578b568985c89d428f612ba3325c88c, type: 2}
   - {fileID: 11400000, guid: 2180f100e3f700a4594a88b850d95954, type: 2}
@@ -47,6 +49,7 @@ MonoBehaviour:
   - stmary
   - wasy
   - bbold
+  - chewy
   - cmbx
   - cmfi
   - cmss
@@ -66,14 +69,15 @@ MonoBehaviour:
   - 6 - stmary.ttf
   - 7 - wasy.ttf
   - 8 - bbold.ttf
-  - 9 - cmbx.ttf
-  - 10 - cmfi.ttf
-  - 11 - cmss.ttf
-  - 12 - cmtt.ttf
-  - 13 - eufm.ttf
-  - 14 - eurm.ttf
-  - 15 - opens.ttf
-  - 16 - iconic.ttf
+  - 9 - chewy.ttf
+  - 10 - cmbx.ttf
+  - 11 - cmfi.ttf
+  - 12 - cmss.ttf
+  - 13 - cmtt.ttf
+  - 14 - eufm.ttf
+  - 15 - eurm.ttf
+  - 16 - opens.ttf
+  - 17 - iconic.ttf
   FontIDsGUI:
   - m_Text: -1 (Use Math Typefaces)
     m_Image: {fileID: 0}
@@ -105,31 +109,34 @@ MonoBehaviour:
   - m_Text: 8 - bbold.ttf
     m_Image: {fileID: 0}
     m_Tooltip: 
-  - m_Text: 9 - cmbx.ttf
+  - m_Text: 9 - chewy.ttf
     m_Image: {fileID: 0}
     m_Tooltip: 
-  - m_Text: 10 - cmfi.ttf
+  - m_Text: 10 - cmbx.ttf
     m_Image: {fileID: 0}
     m_Tooltip: 
-  - m_Text: 11 - cmss.ttf
+  - m_Text: 11 - cmfi.ttf
     m_Image: {fileID: 0}
     m_Tooltip: 
-  - m_Text: 12 - cmtt.ttf
+  - m_Text: 12 - cmss.ttf
     m_Image: {fileID: 0}
     m_Tooltip: 
-  - m_Text: 13 - eufm.ttf
+  - m_Text: 13 - cmtt.ttf
     m_Image: {fileID: 0}
     m_Tooltip: 
-  - m_Text: 14 - eurm.ttf
+  - m_Text: 14 - eufm.ttf
     m_Image: {fileID: 0}
     m_Tooltip: 
-  - m_Text: 15 - opens.ttf
+  - m_Text: 15 - eurm.ttf
     m_Image: {fileID: 0}
     m_Tooltip: 
-  - m_Text: 16 - iconic.ttf
+  - m_Text: 16 - opens.ttf
     m_Image: {fileID: 0}
     m_Tooltip: 
-  FontIndexs: ffffffff000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000
+  - m_Text: 17 - iconic.ttf
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  FontIndexs: ffffffff000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000
   watchedMaterial:
   - {fileID: 2100000, guid: 9d473469be5a9fc448e911362f79b8a9, type: 2}
   - {fileID: 2100000, guid: 9fb82840f4e3d604081053d86702b0a8, type: 2}

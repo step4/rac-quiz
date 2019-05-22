@@ -21,6 +21,8 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
     private PlayerConfigSO _playerConfig = default;
     [SerializeField]
     private ConfigSO _config = default;
+    [SerializeField]
+    private GameSO _newGame = default;
 
     public int NumberOfCourses = default;
     public List<Toggle> SelectedCourses = new List<Toggle>();
@@ -133,15 +135,16 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
     }
 
     [Binding]
-    public void StartGame()
+    public async void StartGame()
     {
         //TODO: Fehlermeldung
         if (SelectedCourses.Count < 1) return;
         var numberOfQuestions = LongGame ? _config.LongGameCount : _config.ShortGameCount;
         var selectedCourse =SelectedCourses[0];
         var courseId = _courses.Find(course => course.name == selectedCourse.name).id;
-        var game = _parseClient.CreateGame(numberOfQuestions, (int)Difficulty, OnTime, courseId);
-
+        var game = await _parseClient.CreateGame(numberOfQuestions, (int)Difficulty, OnTime, courseId);
+        _newGame.game = game;
+        _navigation.SetRoot("GameScreen");
     }
 
     private async void populateListView()

@@ -21,7 +21,7 @@ public class UserScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     private IAvatarClient _avatarClient;
 
     [SerializeField]
-    private PlayerConfigSO PlayerSettings = default;
+    private PlayerConfigSO PlayerConfig = default;
 
     private void Awake()
     {
@@ -29,7 +29,7 @@ public class UserScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         _navigation = NavigationGO.GetComponent<INavigation>();
         _avatarClient = AvatarClientGO.GetComponent<IAvatarClient>();
 
-        if (PlayerSettings.Avatar==null)
+        if (PlayerConfig.Avatar==null)
         {
             SetAvatar();
         }
@@ -43,9 +43,9 @@ public class UserScreenViewModel : MonoBehaviour, INotifyPropertyChanged
 
     private void _loadPlayerSettings()
     {
-        AvatarSprite = PlayerSettings.Avatar;
-        StudyProgramShort = PlayerSettings.StudyProgramShort;
-        StudyProgramSprite = PlayerSettings.StudyProgramSprite;
+        AvatarSprite = PlayerConfig.Avatar;
+        StudyProgramShort = PlayerConfig.StudyProgramShort;
+        StudyProgramSprite = PlayerConfig.StudyProgramSprite;
     }
 
     private Sprite _avatarSprite;
@@ -119,8 +119,8 @@ public class UserScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         var sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.zero);
         AvatarSprite = sprite;
 
-        PlayerSettings.Avatar = sprite;
-        PlayerSettings.AvatarUrl = url;
+        PlayerConfig.Avatar = sprite;
+        PlayerConfig.AvatarUrl = url;
     }
 
     [Binding]
