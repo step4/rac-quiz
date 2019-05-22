@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ public class Navigation : MonoBehaviour, INavigation
 
     private int _screenCount;
 
+ 
     private void OnEnable()
     {
         _screenCount = ScreenTree.transform.childCount;

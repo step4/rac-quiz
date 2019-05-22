@@ -32,7 +32,7 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         _uniWebView = UniWebViewGO.GetComponent<UniWebView>();
         _navigation = NavigationGO.GetComponent<INavigation>();
 
-
+        _playerConfig.Reset();
         //UniWebViewLogger.Instance.LogLevel = UniWebViewLogger.Level.Verbose;
         UniWebView.ClearCookies();
 

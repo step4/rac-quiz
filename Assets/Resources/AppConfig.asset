@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sessionToken: r:60ed43cf0f3803d75f37cf83cd265193
   LoginUrl: https://rheinahrcampus.de/racmt4/auth/login
-  ParseApi: https://rheinahrcampus.de/racmt4/api
+  ParseApi: http://localhost:8080/api
   ParseAppId: hochschulQuiz
+  ShortGameCount: 2
+  LongGameCount: 4

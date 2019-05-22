@@ -10,6 +10,7 @@ public class ConfigSO : ScriptableObject
         SessionToken = PlayerPrefs.GetString("SESSION_TOKEN", "");
         Debug.Log("session from pref: " + SessionToken);
     }
+    [Header("Parse Settings")]
     [SerializeField]
     private string _sessionToken;
 
@@ -32,4 +33,8 @@ public class ConfigSO : ScriptableObject
     public string ParseApi;
 
     public string ParseAppId;
+
+    [Header("Game Settings")]
+    public int ShortGameCount;
+    public int LongGameCount;
 }

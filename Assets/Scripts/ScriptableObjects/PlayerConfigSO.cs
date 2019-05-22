@@ -17,12 +17,7 @@ public class PlayerConfigSO : ScriptableObject
 
     public string PlayerName;
 
-    public void OnEnable()
-    {
-        _reset();
-    }
-
-    private void _reset()
+    public void Reset()
     {
         StudyProgram = default;
         StudyProgramId = default;

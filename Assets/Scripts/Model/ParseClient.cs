@@ -12,7 +12,8 @@ public class ParseClient : MonoBehaviour, IParseClient
     private HttpClient _client = new HttpClient();
     [SerializeField]
     private ConfigSO _config = default;
-
+    [SerializeField]
+    private bool _injectSessionToken = default;
 
     private void Awake()
     {
@@ -21,12 +22,14 @@ public class ParseClient : MonoBehaviour, IParseClient
             return true;
         };
 
-        _client.BaseAddress = new Uri(_config.ParseApi);
+        //_client.BaseAddress = new Uri(_config.ParseApi);
         _client.DefaultRequestHeaders.Accept.Clear();
         _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
         _client.DefaultRequestHeaders.Add("X-Parse-Application-Id", _config.ParseAppId);
 
+        if (_injectSessionToken)
+            SetSessionToken(_config.SessionToken);
     }
 
     public void SetSessionToken(string token)
@@ -78,5 +81,35 @@ public class ParseClient : MonoBehaviour, IParseClient
 
         var studyProgramResponse = JsonConvert.DeserializeObject<ParseObjectResponse<StudyProgram>>(studyProgramJson);
         return studyProgramResponse.result;
+    }
+
+    public async Task<List<Course>> GetCourses(string studyProgramId)
+    {
+        var studyProgramIdRequest = new StudyProgramId() { id = studyProgramId };
+        var json = JsonConvert.SerializeObject(studyProgramIdRequest);
+
+        HttpResponseMessage response = await _client.PostAsync($"{_config.ParseApi}/functions/get_courses", new StringContent(json));
+
+        response.EnsureSuccessStatusCode();
+        var coursesJson = await response.Content.ReadAsStringAsync();
+
+
+        var coursesResponse = JsonConvert.DeserializeObject<ParseListResponse<Course>>(coursesJson);
+        return coursesResponse.result;
+    }
+
+    public async Task<Game> CreateGame(int numberOfQuestions, int difficulty, bool withTimer, string courseId)
+    {
+        var newGameRequest = new GameOptions() { courseId = courseId, difficulty = difficulty, withTimer = withTimer, numberOfQuestions = numberOfQuestions };
+        var json = JsonConvert.SerializeObject(newGameRequest);
+
+        HttpResponseMessage response = await _client.PostAsync($"{_config.ParseApi}/functions/create_game", new StringContent(json));
+
+        response.EnsureSuccessStatusCode();
+        var gameJson = await response.Content.ReadAsStringAsync();
+
+
+        var coursesResponse = JsonConvert.DeserializeObject<ParseObjectResponse<Game>>(gameJson);
+        return coursesResponse.result;
     }
 }
