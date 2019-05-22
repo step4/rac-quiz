@@ -790,7 +790,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.027512}
+  m_AnchoredPosition: {x: 0, y: 0.027526855}
   m_SizeDelta: {x: -80, y: -79.955}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &178964302
@@ -818,7 +818,7 @@ MonoBehaviour:
   m_FontIndex: 9
   m_Size: 76
   m_AutoFit: 1
-  m_AutoWrap: 0
+  m_AutoWrap: 2
   m_AutoFill: 0
   m_SpaceSize: 0.2
   m_Align: {x: 0.5, y: 0.5}
@@ -929,11 +929,11 @@ RectTransform:
   m_Father: {fileID: 1181935940}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 888}
-  m_SizeDelta: {x: 0, y: -1776}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1080, y: 145}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &227226749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1164,13 +1164,14 @@ RectTransform:
   m_Children:
   - {fileID: 714554771}
   - {fileID: 178964301}
+  - {fileID: 1200153844}
   m_Father: {fileID: 458638448}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 260.4}
-  m_SizeDelta: {x: -60, y: -960.8}
+  m_SizeDelta: {x: -60, y: 959.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &235582557
 MonoBehaviour:
@@ -1655,7 +1656,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &458638448
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1670,7 +1671,6 @@ RectTransform:
   - {fileID: 583695681}
   - {fileID: 1045096013}
   - {fileID: 235582556}
-  - {fileID: 1200153844}
   m_Father: {fileID: 1500388836}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1696,8 +1696,8 @@ MonoBehaviour:
   _playerConfig: {fileID: 11400000, guid: 0dece06fcd1060b4facacc1156fcc507, type: 2}
   _config: {fileID: 11400000, guid: dea6489a9972fac48bb6a9b5d04e0055, type: 2}
   _currentGame: {fileID: 11400000, guid: ea1eb3e2ef1402942b03fbe6cae409d4, type: 2}
-  rightAnswerSprite: {fileID: 0}
-  wrongAnswerSprite: {fileID: 0}
+  _rightAnswerSprite: {fileID: 21300000, guid: 0b8be10573190d044804314ceb3045c2, type: 3}
+  _wrongAnswerSprite: {fileID: 21300000, guid: f7f0c8b13c84ff44086b2a5c9effed13, type: 3}
   _answerSize: {x: 500, y: 330}
   _answerSpacing: {x: 15, y: 15}
 --- !u!114 &458638450
@@ -2178,6 +2178,7 @@ GameObject:
   - component: {fileID: 548110205}
   - component: {fileID: 548110206}
   - component: {fileID: 548110207}
+  - component: {fileID: 548110208}
   m_Layer: 5
   m_Name: Answer
   m_TagString: Untagged
@@ -2202,10 +2203,10 @@ RectTransform:
   m_Father: {fileID: 1200153844}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 510, y: -165}
+  m_SizeDelta: {x: 500, y: 330}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &548110206
 MonoBehaviour:
@@ -2269,6 +2270,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewModelTypeName: AnswerViewModel
+--- !u!114 &548110208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548110204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49c2518e83724b7e9e9c85d9d1ab1b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewModelMethodName: AnswerViewModel.OnAnswerPressed
+  viewEventName: UnityEngine.UI.Toggle.onValueChanged
 --- !u!1 &549935544
 GameObject:
   m_ObjectHideFlags: 0
@@ -4125,6 +4140,7 @@ GameObject:
   - component: {fileID: 1018775993}
   - component: {fileID: 1018775995}
   - component: {fileID: 1018775994}
+  - component: {fileID: 1018775996}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -4193,6 +4209,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1018775992}
   m_CullTransparentMesh: 0
+--- !u!114 &1018775996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018775992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cf66106c677f4d3984f7541849c297a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewAdapterTypeName: 
+  viewAdapterOptions: {fileID: 0}
+  viewModelPropertyName: GameScreen.QuestionNumber
+  viewPropertyName: UnityEngine.UI.Text.text
 --- !u!1 &1045096012
 GameObject:
   m_ObjectHideFlags: 0
@@ -4541,7 +4573,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1114690877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4955,18 +4987,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1200153843}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 548110205}
-  m_Father: {fileID: 458638448}
-  m_RootOrder: 3
+  m_Father: {fileID: 235582556}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -585}
-  m_SizeDelta: {x: -60, y: -1230}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -840.7}
+  m_SizeDelta: {x: 0, y: 690.80005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1200153845
 MonoBehaviour:
@@ -5542,6 +5574,7 @@ GameObject:
   - component: {fileID: 1356678967}
   - component: {fileID: 1356678969}
   - component: {fileID: 1356678968}
+  - component: {fileID: 1356678970}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -5610,6 +5643,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1356678966}
   m_CullTransparentMesh: 0
+--- !u!114 &1356678970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356678966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cf66106c677f4d3984f7541849c297a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewAdapterTypeName: 
+  viewAdapterOptions: {fileID: 0}
+  viewModelPropertyName: GameScreen.Score
+  viewPropertyName: UnityEngine.UI.Text.text
 --- !u!1 &1380220657
 GameObject:
   m_ObjectHideFlags: 0
@@ -5989,7 +6038,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -463, y: 0.000044823}
+  m_AnchoredPosition: {x: -463, y: 0.000045776367}
   m_SizeDelta: {x: 121.2, y: 122.44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1457537512
@@ -6974,10 +7023,10 @@ RectTransform:
   m_Father: {fileID: 2051965040}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -4.5, y: 835}
-  m_SizeDelta: {x: -9, y: 192}
+  m_SizeDelta: {x: 971, y: 192}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1730195804
 MonoBehaviour:
@@ -7191,6 +7240,7 @@ GameObject:
   - component: {fileID: 1777186421}
   - component: {fileID: 1777186423}
   - component: {fileID: 1777186422}
+  - component: {fileID: 1777186424}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -7259,6 +7309,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1777186420}
   m_CullTransparentMesh: 0
+--- !u!114 &1777186424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1777186420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cf66106c677f4d3984f7541849c297a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewAdapterTypeName: 
+  viewAdapterOptions: {fileID: 0}
+  viewModelPropertyName: GameScreen.GameTime
+  viewPropertyName: UnityEngine.UI.Text.text
 --- !u!1 &1836733271
 GameObject:
   m_ObjectHideFlags: 0
@@ -8295,10 +8361,10 @@ RectTransform:
   m_Father: {fileID: 1181935940}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -75}
-  m_SizeDelta: {x: -100, y: -250}
+  m_SizeDelta: {x: -100, y: 1670}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2051965041
 MonoBehaviour:
@@ -8706,7 +8772,7 @@ MonoBehaviour:
   m_FontIndex: 9
   m_Size: 42
   m_AutoFit: 1
-  m_AutoWrap: 0
+  m_AutoWrap: 2
   m_AutoFill: 0
   m_SpaceSize: 0.2
   m_Align: {x: 0.5, y: 0.5}
@@ -8733,7 +8799,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewAdapterTypeName: 
   viewAdapterOptions: {fileID: 0}
-  viewModelPropertyName: AnswerViewModel.LatexText
+  viewModelPropertyName: AnswerViewModel.AnswerText
   viewPropertyName: TEXDraw.text
 --- !u!1 &2146677908
 GameObject:
@@ -8904,7 +8970,7 @@ PrefabInstance:
         type: 3}
       propertyPath: FirstScreen
       value: 
-      objectReference: {fileID: 915146182}
+      objectReference: {fileID: 1114690876}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e20c5f2bcd4ed704cb6842e6f5a96f8e, type: 3}
 --- !u!1001 &3155820775132588750

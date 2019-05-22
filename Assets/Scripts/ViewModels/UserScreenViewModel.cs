@@ -126,7 +126,7 @@ public class UserScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     [Binding]
     public void OpenSettings()
     {
-        _navigation.Push("SettingsScreen");
+        _navigation.Push("StudyProgramScreen");
     }
 
     [Binding]

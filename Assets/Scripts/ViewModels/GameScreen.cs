@@ -102,7 +102,7 @@ public class GameScreen : MonoBehaviour, INotifyPropertyChanged
     {
         if (isRight)
         {
-            Score += 10;
+            _currentGame.score += 10;
             await Task.Delay(1000);
             nextQuestion();
         }
