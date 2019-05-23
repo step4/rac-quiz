@@ -17,10 +17,10 @@ public class ParseClient : MonoBehaviour, IParseClient
 
     private void Awake()
     {
-        ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, error) =>
-        {
-            return true;
-        };
+        //ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, error) =>
+        //{
+        //    return true;
+        //};
 
         //_client.BaseAddress = new Uri(_config.ParseApi);
         _client.DefaultRequestHeaders.Accept.Clear();
@@ -38,16 +38,44 @@ public class ParseClient : MonoBehaviour, IParseClient
         _client.DefaultRequestHeaders.Add("X-Parse-Session-Token", token);
     }
 
+    private async Task<string> _postWithEmptyString(string endpoint)
+    {
+        try
+        {
+            HttpResponseMessage response = await _client.PostAsync($"{_config.ParseApi}/{endpoint}", new StringContent(""));
+
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStringAsync();
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex.Message);
+            throw ex;
+        }
+    }
+
+    private async Task<string> _postWithData(string endpoint, string jsonData)
+    {
+        try
+        {
+            HttpResponseMessage response = await _client.PostAsync($"{_config.ParseApi}/{endpoint}", new StringContent(jsonData));
+
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStringAsync();
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex.Message);
+            throw ex;
+        }
+    }
+
+    private List<K> _deserializeParseList<T,K>(string json) where T : ParseListResponse<K> => JsonConvert.DeserializeObject<T>(json).result;
+    private K _deserializeParseObject<T,K>(string json) where T : ParseObjectResponse<K> => JsonConvert.DeserializeObject<T>(json).result;
     public async Task<List<Faculty>> GetStudyPrograms()
     {
-        HttpResponseMessage response = await _client.PostAsync($"{_config.ParseApi}/functions/get_studyprograms", new StringContent(""));
-
-        response.EnsureSuccessStatusCode();
-        var studyProgramsJson = await response.Content.ReadAsStringAsync();
-
-
-        var studyProgramsResponse = JsonConvert.DeserializeObject<ParseListResponse<Faculty>>(studyProgramsJson);
-        return studyProgramsResponse.result;
+        var studyProgramsJson = await _postWithEmptyString("functions/get_studyprograms");
+        return _deserializeParseList<ParseListResponse<Faculty>, Faculty>(studyProgramsJson);
     }
 
     public async Task SetStudyProgram(string id)
@@ -55,19 +83,13 @@ public class ParseClient : MonoBehaviour, IParseClient
         var studyProgramId = new StudyProgramId() { id = id };
         var json = JsonConvert.SerializeObject(studyProgramId);
 
-        HttpResponseMessage response = await _client.PostAsync($"{_config.ParseApi}/functions/set_studyprogram", new StringContent(json));
-        response.EnsureSuccessStatusCode();
+        await _postWithData("functions/set_studyprogram", json);
     }
 
     public async Task<PlayerConfig> GetUserMe()
     {
-        print(_client.DefaultRequestHeaders);
-        HttpResponseMessage response = await _client.PostAsync($"{_config.ParseApi}/functions/get_me", new StringContent(""));
-        response.EnsureSuccessStatusCode();
-        var getMeJson = await response.Content.ReadAsStringAsync();
-
-        var studyProgramsResponse = JsonConvert.DeserializeObject<ParseObjectResponse<PlayerConfig>>(getMeJson);
-        return studyProgramsResponse.result;
+        var getMeJson = await _postWithEmptyString("functions/get_me");
+        return _deserializeParseObject<ParseObjectResponse<PlayerConfig>, PlayerConfig>(getMeJson);
     }
 
     public async Task<StudyProgram> GetStudyProgram(string id)
@@ -75,12 +97,8 @@ public class ParseClient : MonoBehaviour, IParseClient
         var studyProgramId = new StudyProgramId() { id = id };
         var json = JsonConvert.SerializeObject(studyProgramId);
 
-        HttpResponseMessage response = await _client.PostAsync($"{_config.ParseApi}/functions/get_studyprogram", new StringContent(json));
-        response.EnsureSuccessStatusCode();
-        var studyProgramJson = await response.Content.ReadAsStringAsync();
-
-        var studyProgramResponse = JsonConvert.DeserializeObject<ParseObjectResponse<StudyProgram>>(studyProgramJson);
-        return studyProgramResponse.result;
+        var studyProgramJson = await _postWithData("functions/get_studyprogram", json);
+        return _deserializeParseObject<ParseObjectResponse<StudyProgram>, StudyProgram>(studyProgramJson);
     }
 
     public async Task<List<Course>> GetCourses(string studyProgramId)
@@ -88,14 +106,8 @@ public class ParseClient : MonoBehaviour, IParseClient
         var studyProgramIdRequest = new StudyProgramId() { id = studyProgramId };
         var json = JsonConvert.SerializeObject(studyProgramIdRequest);
 
-        HttpResponseMessage response = await _client.PostAsync($"{_config.ParseApi}/functions/get_courses", new StringContent(json));
-
-        response.EnsureSuccessStatusCode();
-        var coursesJson = await response.Content.ReadAsStringAsync();
-
-
-        var coursesResponse = JsonConvert.DeserializeObject<ParseListResponse<Course>>(coursesJson);
-        return coursesResponse.result;
+        var coursesJson = await _postWithData("functions/get_courses", json);
+        return _deserializeParseList<ParseListResponse<Course>, Course>(coursesJson);
     }
 
     public async Task<Game> CreateGame(int numberOfQuestions, int difficulty, bool withTimer, string courseId)
@@ -103,13 +115,8 @@ public class ParseClient : MonoBehaviour, IParseClient
         var newGameRequest = new GameOptions() { courseId = courseId, difficulty = difficulty, withTimer = withTimer, numberOfQuestions = numberOfQuestions };
         var json = JsonConvert.SerializeObject(newGameRequest);
 
-        HttpResponseMessage response = await _client.PostAsync($"{_config.ParseApi}/functions/create_game", new StringContent(json));
+        var gameJson = await _postWithData("functions/create_game", json);
 
-        response.EnsureSuccessStatusCode();
-        var gameJson = await response.Content.ReadAsStringAsync();
-
-
-        var coursesResponse = JsonConvert.DeserializeObject<ParseObjectResponse<Game>>(gameJson);
-        return coursesResponse.result;
+        return _deserializeParseObject<ParseObjectResponse<Game>, Game>(gameJson);
     }
 }

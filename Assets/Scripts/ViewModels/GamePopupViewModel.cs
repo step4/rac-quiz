@@ -23,23 +23,23 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
     private ConfigSO _config = default;
     [SerializeField]
     private GameSO _newGame = default;
+    [SerializeField]
+    private Color _selectedTextColor = default;
 
     public int NumberOfCourses = default;
     public List<Toggle> SelectedCourses = new List<Toggle>();
 
     private bool popupCreated = false;
 
-    private List<Course> _courses;
 
     private void Awake()
     {
         _parseClient = ParseClientGO.GetComponent<IParseClient>();
         _navigation = NavigationGO.GetComponent<INavigation>();
-
         Difficulty = 1;
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         if (!popupCreated)
         {
@@ -47,6 +47,27 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
             popupCreated = true;
         }
     }
+
+    private void OnDisable()
+    {
+        popupCreated = false;
+        Courses.Clear();
+        SelectedCourses.Clear();
+    }
+    private ObservableList<CourseViewModel> _courses = new ObservableList<CourseViewModel>();
+    [Binding]
+    public ObservableList<CourseViewModel> Courses
+    {
+        get => _courses;
+        set
+        {
+            if (value != _courses)
+            {
+                _courses = value;
+                OnPropertyChanged();
+            }
+        }
+    } 
 
     [SerializeField]
     private float _difficulty;
@@ -138,10 +159,12 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
     public async void StartGame()
     {
         //TODO: Fehlermeldung
-        if (SelectedCourses.Count < 1) return;
-        var numberOfQuestions = LongGame ? _config.LongGameCount : _config.ShortGameCount;
-        var selectedCourse =SelectedCourses[0];
-        var courseId = _courses.Find(course => course.name == selectedCourse.name).id;
+        //if (SelectedCourses.Count < 1) return;
+        //var numberOfQuestions = LongGame ? _config.LongGameCount : _config.ShortGameCount;
+        var numberOfQuestions = 2;
+        //var selectedCourse = SelectedCourses[0];
+        //var courseId = _courses.Find(course => course.name == selectedCourse.name).id;
+        var courseId = "sFHftdfU24";
         var game = await _parseClient.CreateGame(numberOfQuestions, (int)Difficulty, OnTime, courseId);
         _newGame.game = game;
         _navigation.SetRoot("GameScreen");
@@ -149,10 +172,22 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
 
     private async void populateListView()
     {
-        _courses = await _parseClient.GetCourses(_playerConfig.StudyProgramId);
-        var popup = GetComponentInChildren<GamePopup>();
-        popup.Create(_courses);
+        var courses = await _parseClient.GetCourses(_playerConfig.StudyProgramId);
+        Courses = new ObservableList<CourseViewModel>();
+        courses.ForEach(course => {
+            var courseViewModel = new CourseViewModel {
+                CourseId = course.id,
+                CourseText = course.name,
+                CoursePressed = courseSelected,
 
+            };
+            Courses.Add(courseViewModel);
+        });
+    }
+
+    private void courseSelected(string courseId, bool selected,Toggle toggleComponent)
+    {
+        print(courseId);
     }
 
     public event PropertyChangedEventHandler PropertyChanged;

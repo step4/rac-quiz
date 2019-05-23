@@ -8,7 +8,7 @@ using UnityWeld.Binding;
 using System.Threading.Tasks;
 
 [Binding]
-public class GameScreen : MonoBehaviour, INotifyPropertyChanged
+public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
 {
     [SerializeField]
     private GameObject ParseClientGO = default;
@@ -47,6 +47,10 @@ public class GameScreen : MonoBehaviour, INotifyPropertyChanged
 
         updateGameInfo();
         nextQuestion();
+    }
+    private void OnDisable()
+    {
+        Answers.Clear();
     }
     private void Update()
     {
@@ -92,7 +96,7 @@ public class GameScreen : MonoBehaviour, INotifyPropertyChanged
             {
                 AnswerText = answer.answerText,
                 ToggleBG = answer.isRightAnswer ? _rightAnswerSprite : _wrongAnswerSprite,
-                AnswerPressed = (isRight) => answerPressed(isRight)
+                AnswerPressed = answerPressed
             };
             Answers.Add(answerViewModel);
         });
@@ -135,7 +139,7 @@ public class GameScreen : MonoBehaviour, INotifyPropertyChanged
         }
     }
 
-    private ObservableList<AnswerViewModel> _answers;
+    private ObservableList<AnswerViewModel> _answers = new ObservableList<AnswerViewModel>();
     [Binding]
     public ObservableList<AnswerViewModel> Answers
     {
