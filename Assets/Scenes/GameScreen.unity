@@ -5246,13 +5246,14 @@ GameObject:
   - component: {fileID: 1114690879}
   - component: {fileID: 1114690878}
   - component: {fileID: 1114690877}
+  - component: {fileID: 1114690882}
   m_Layer: 5
   m_Name: StartScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1114690877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5342,6 +5343,25 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!95 &1114690882
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114690876}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3acaa5ce2cd19a041b8a2b07246fa73a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1116140542
 GameObject:
   m_ObjectHideFlags: 0
@@ -10747,6 +10767,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Navigation
       objectReference: {fileID: 0}
+    - target: {fileID: 1567312911224163401, guid: e20c5f2bcd4ed704cb6842e6f5a96f8e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1567312911224163400, guid: e20c5f2bcd4ed704cb6842e6f5a96f8e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10811,7 +10836,7 @@ PrefabInstance:
         type: 3}
       propertyPath: FirstScreen
       value: 
-      objectReference: {fileID: 8877360750442829654}
+      objectReference: {fileID: 1114690876}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e20c5f2bcd4ed704cb6842e6f5a96f8e, type: 3}
 --- !u!1001 &3155820775132588750
@@ -11829,7 +11854,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &8877360750442829655
 MonoBehaviour:
   m_ObjectHideFlags: 0
