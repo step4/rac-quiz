@@ -51,7 +51,7 @@ public class Avataaars
         try
         {
             var url = $"https://avataaars.io/png/{width}?{GetRandomString()}";
-            Debug.Log(url);
+            //Debug.Log(url);
             HttpResponseMessage response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
             byte[] image = await response.Content.ReadAsByteArrayAsync();

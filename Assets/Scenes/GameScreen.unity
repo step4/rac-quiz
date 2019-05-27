@@ -815,8 +815,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   debugReport: 
   m_Text: \sum adsasd
-  m_FontIndex: 9
-  m_Size: 76
+  m_FontIndex: -1
+  m_Size: 82
   m_AutoFit: 1
   m_AutoWrap: 2
   m_AutoFill: 0
@@ -845,7 +845,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewAdapterTypeName: 
   viewAdapterOptions: {fileID: 0}
-  viewModelPropertyName: GameScreen.QuestionText
+  viewModelPropertyName: GameScreenViewModel.QuestionText
   viewPropertyName: TEXDraw.text
 --- !u!1 &216778754 stripped
 GameObject:
@@ -2083,51 +2083,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &538190952
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 538190954}
-  - component: {fileID: 538190953}
-  m_Layer: 0
-  m_Name: init
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &538190953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 538190952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 793323aecd03b5341bf6ab84a3a9829b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 1230702701}
-  img: {fileID: 0}
---- !u!4 &538190954
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 538190952}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 523, y: 1400, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &541911524
 GameObject:
   m_ObjectHideFlags: 0
@@ -2185,7 +2140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &548110205
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2535,55 +2490,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2107213903}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &603656958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603656956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b49c2518e83724b7e9e9c85d9d1ab1b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewModelMethodName: CourseViewModel.OnCoursePressed
-  viewEventName: UnityEngine.UI.Toggle.onValueChanged
---- !u!114 &603656959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603656956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b952a36f2d9f48ad9afaf119900d653, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewModelTypeName: CourseViewModel
---- !u!114 &603656963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603656956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4ccf6c0a97b24efdb4d400c41dd4a44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewModelPropertyName: CourseViewModel.Selected
-  viewEventName: UnityEngine.UI.Toggle.onValueChanged
-  viewPropertyName: UnityEngine.UI.Toggle.isOn
-  viewAdapterTypeName: 
-  viewAdapterOptions: {fileID: 0}
-  viewModelAdapterTypeName: 
-  viewModelAdapterOptions: {fileID: 0}
-  exceptionPropertyName: 
-  exceptionAdapterTypeName: 
-  exceptionAdapterOptions: {fileID: 0}
 --- !u!1 &623273077
 GameObject:
   m_ObjectHideFlags: 0
@@ -3803,9 +3709,9 @@ MonoBehaviour:
   _playerConfig: {fileID: 11400000, guid: 0dece06fcd1060b4facacc1156fcc507, type: 2}
   _config: {fileID: 11400000, guid: dea6489a9972fac48bb6a9b5d04e0055, type: 2}
   _newGame: {fileID: 11400000, guid: ea1eb3e2ef1402942b03fbe6cae409d4, type: 2}
-  _selectedTextColor: {r: 0.59607846, g: 0.8156863, b: 0.8509804, a: 1}
+  _unselectedTextColor: {r: 0.59607846, g: 0.8156863, b: 0.8509804, a: 1}
   NumberOfCourses: 1
-  SelectedCourses: []
+  SelectedCoursesId: []
   _difficulty: 0
   _onTime: 0
   _longGame: 0
@@ -4314,7 +4220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewAdapterTypeName: 
   viewAdapterOptions: {fileID: 0}
-  viewModelPropertyName: GameScreen.QuestionNumber
+  viewModelPropertyName: GameScreenViewModel.QuestionNumber
   viewPropertyName: UnityEngine.UI.Text.text
 --- !u!1 &1045096012
 GameObject:
@@ -4664,7 +4570,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1114690877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5105,7 +5011,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewAdapterTypeName: 
   viewAdapterOptions: {fileID: 0}
-  viewModelPropertyName: GameScreen.AnswerSpacing
+  viewModelPropertyName: GameScreenViewModel.AnswerSpacing
   viewPropertyName: UnityEngine.UI.GridLayoutGroup.spacing
 --- !u!114 &1200153846
 MonoBehaviour:
@@ -5121,7 +5027,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewAdapterTypeName: 
   viewAdapterOptions: {fileID: 0}
-  viewModelPropertyName: GameScreen.AnswerSize
+  viewModelPropertyName: GameScreenViewModel.AnswerSize
   viewPropertyName: UnityEngine.UI.GridLayoutGroup.cellSize
 --- !u!114 &1200153847
 MonoBehaviour:
@@ -5167,7 +5073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d18782a5338420f964a50f506dbed9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewModelPropertyName: GameScreen.Answers
+  viewModelPropertyName: GameScreenViewModel.Answers
   templatesRoot: {fileID: 1200153843}
 --- !u!114 &1230702701
 MonoBehaviour:
@@ -5562,7 +5468,7 @@ Transform:
   - {fileID: 216778755}
   - {fileID: 231111993}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1334170565
 GameObject:
@@ -5748,7 +5654,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewAdapterTypeName: 
   viewAdapterOptions: {fileID: 0}
-  viewModelPropertyName: GameScreen.Score
+  viewModelPropertyName: GameScreenViewModel.Score
   viewPropertyName: UnityEngine.UI.Text.text
 --- !u!1 &1380220657
 GameObject:
@@ -6281,7 +6187,7 @@ Transform:
   - {fileID: 915146183}
   - {fileID: 458638448}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1500896566
 GameObject:
@@ -7087,7 +6993,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2107213903}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1721403414
+--- !u!114 &1721403411
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7436,7 +7342,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewAdapterTypeName: 
   viewAdapterOptions: {fileID: 0}
-  viewModelPropertyName: GameScreen.GameTime
+  viewModelPropertyName: GameScreenViewModel.GameTime
   viewPropertyName: UnityEngine.UI.Text.text
 --- !u!1 &1836733271
 GameObject:
@@ -8770,11 +8676,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Course
       objectReference: {fileID: 0}
-    - target: {fileID: 1855856442699889425, guid: 75dd7bae72f3ee145a928e7f7f768c55,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1855856442699889424, guid: 75dd7bae72f3ee145a928e7f7f768c55,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9021,8 +8922,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   debugReport: 
   m_Text: \sum answer
-  m_FontIndex: 9
-  m_Size: 42
+  m_FontIndex: -1
+  m_Size: 62
   m_AutoFit: 1
   m_AutoWrap: 2
   m_AutoFill: 0
@@ -9222,7 +9123,7 @@ PrefabInstance:
         type: 3}
       propertyPath: FirstScreen
       value: 
-      objectReference: {fileID: 8877360750442829654}
+      objectReference: {fileID: 1114690876}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e20c5f2bcd4ed704cb6842e6f5a96f8e, type: 3}
 --- !u!1001 &3155820775132588750
@@ -10240,7 +10141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &8877360750442829655
 MonoBehaviour:
   m_ObjectHideFlags: 0

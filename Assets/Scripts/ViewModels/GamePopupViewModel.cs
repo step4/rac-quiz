@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityWeld.Binding;
+using System.Linq;
 
 [Binding]
 public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
@@ -24,10 +25,10 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
     [SerializeField]
     private GameSO _newGame = default;
     [SerializeField]
-    private Color _selectedTextColor = default;
+    private Color _unselectedTextColor = default;
 
     public int NumberOfCourses = default;
-    public List<Toggle> SelectedCourses = new List<Toggle>();
+    public List<string> SelectedCoursesId = new List<string>();
 
     private bool popupCreated = false;
 
@@ -52,7 +53,7 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
     {
         popupCreated = false;
         Courses.Clear();
-        SelectedCourses.Clear();
+        SelectedCoursesId.Clear();
     }
     private ObservableList<CourseViewModel> _courses = new ObservableList<CourseViewModel>();
     [Binding]
@@ -117,31 +118,34 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
         }
     }
 
-    public void AddSelection(Toggle toggle)
+    public void AddSelection(string courseId)
     {
         if (NumberOfCourses == 1)
         {
-            if (SelectedCourses.Count != 0)
+            if (SelectedCoursesId.Count != 0)
             {
-                SelectedCourses[0].isOn = false;
-                SelectedCourses.Clear();
+                _deactivateToggle(SelectedCoursesId[0]);
+                SelectedCoursesId.Clear();
             }
-            SelectedCourses.Add(toggle);
+            SelectedCoursesId.Add(courseId);
             return;
         }
-        if (SelectedCourses.Count < NumberOfCourses)
+        if (SelectedCoursesId.Count < NumberOfCourses)
         {
-            SelectedCourses.Add(toggle);
+            SelectedCoursesId.Add(courseId);
         }
         else
         {
-            toggle.isOn = false;
+            _deactivateToggle(courseId);
         }
     }
 
-    public void RemoveSelection(Toggle toggle)
+    private void _activateToggle(string id) => Courses.Single(course => course.CourseId == id).Selected = true;
+    private void _deactivateToggle(string id) => Courses.Single(course => course.CourseId == id).Selected = false;
+
+    public void RemoveSelection(string courseId)
     {
-        SelectedCourses.Remove(toggle);
+        SelectedCoursesId.Remove(courseId);
     }
 
     public void SetDifficulty(float value)
@@ -159,13 +163,10 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
     public async void StartGame()
     {
         //TODO: Fehlermeldung
-        //if (SelectedCourses.Count < 1) return;
-        //var numberOfQuestions = LongGame ? _config.LongGameCount : _config.ShortGameCount;
-        var numberOfQuestions = 2;
-        //var selectedCourse = SelectedCourses[0];
-        //var courseId = _courses.Find(course => course.name == selectedCourse.name).id;
-        var courseId = "sFHftdfU24";
-        var game = await _parseClient.CreateGame(numberOfQuestions, (int)Difficulty, OnTime, courseId);
+        if (SelectedCoursesId.Count < 1) return;
+        var numberOfQuestions = LongGame ? _config.LongGameCount : _config.ShortGameCount;
+        var selectedCourseId = SelectedCoursesId[0];
+        var game = await _parseClient.CreateGame(numberOfQuestions, (int)Difficulty, OnTime, selectedCourseId);
         _newGame.game = game;
         _navigation.SetRoot("GameScreen");
     }
@@ -173,21 +174,33 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
     private async void populateListView()
     {
         var courses = await _parseClient.GetCourses(_playerConfig.StudyProgramId);
+        courses.Sort((course1, course2) => {
+            return course1.name.CompareTo(course2.name);
+        });
         Courses = new ObservableList<CourseViewModel>();
         courses.ForEach(course => {
             var courseViewModel = new CourseViewModel {
                 CourseId = course.id,
                 CourseText = course.name,
-                CoursePressed = courseSelected,
-
+                CoursePressed = courseTapped,
+                Selected = false,
+                SelectedTextColor = Color.white,
+                UnselectedTextColor = _unselectedTextColor,
+                TextColor = _unselectedTextColor
             };
             Courses.Add(courseViewModel);
         });
     }
 
-    private void courseSelected(string courseId, bool selected,Toggle toggleComponent)
+    private void courseTapped(string courseId, bool selected)
     {
-        print(courseId);
+        if (selected) {
+            AddSelection(courseId);
+        }
+        else
+        {
+            RemoveSelection(courseId);
+        }
     }
 
     public event PropertyChangedEventHandler PropertyChanged;

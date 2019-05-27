@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using UnityWeld.Binding;
 using System.Threading.Tasks;
+using System.Linq;
 
 [Binding]
 public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
@@ -73,7 +74,8 @@ public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
 
     private void finishGame()
     {
-        _navigation.SetRoot("UserScreen");
+
+        _navigation.PushPopup("GameFinishedPopup");
     }
 
     private void startQuestion()
@@ -84,29 +86,78 @@ public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     private void fillQuestionAndAnswers()
     {
         var currentQuestion = _currentGame.game.questions[_currentGame.currentQuestion-1];
-        QuestionText = currentQuestion.questionText;
+        var parsedQuestionText = string.Empty;
+        if(currentQuestion.hasLatex)
+            parsedQuestionText= parseLatex(currentQuestion.questionText);
+        else
+            parsedQuestionText = $@"\text{{{currentQuestion.questionText}}}";
+
+        QuestionText = parsedQuestionText;
 
         Answers = new ObservableList<AnswerViewModel>();
+        var answerIndex = 0;
         currentQuestion.answers.ForEach(answer => {
+            var parsedAnswerText = string.Empty;
             if (answer.hasLatex)
-            {
+                parsedAnswerText = parseLatex(answer.answerText);
+            else
+                parsedAnswerText = $@"\text{{{answer.answerText}}}";
 
-            }
             var answerViewModel = new AnswerViewModel
             {
-                AnswerText = answer.answerText,
+                AnswerText = parsedAnswerText,
                 ToggleBG = answer.isRightAnswer ? _rightAnswerSprite : _wrongAnswerSprite,
-                AnswerPressed = answerPressed
+                AnswerPressed = answerPressed,
+                IsRight = answer.isRightAnswer,
+                Clickable = true,
+                Index = answerIndex
             };
+            answerIndex++;
             Answers.Add(answerViewModel);
         });
     }
 
-    private async void answerPressed(bool isRight)
+    private string parseLatex(string inputText)
     {
+        var text = string.Empty;
+        var delimeter = '$';
+        var startswithFormula = inputText[0] == delimeter;
+        var inputTextParts = inputText.Split(delimeter).ToList();
+        for (int i = 0; i < inputTextParts.Count; i++)
+        {
+            if (i%2 == 0)
+            {
+                text += $@"\text{{{inputTextParts[i]}}}";
+            }
+            else
+            {
+                text += inputTextParts[i];
+            }
+            
+        }
+       return text;
+    }
+
+    private async void answerPressed(bool isRight,int index)
+    {
+        foreach (var answer in Answers)
+        {
+            answer.Clickable = false;
+        }
+
+        var questionId = _currentGame.game.questions[_currentGame.currentQuestion - 1].questionId;
+        var answerIndices = new List<int> { index };
+        var givenAnswer = new GivenAnswer
+        {
+            answerIndices = answerIndices,
+            questionId = questionId,
+            correctlyAnswered = isRight
+        };
+        _currentGame.game.givenAnswers.Add(givenAnswer);
+
         if (isRight)
         {
-            _currentGame.score += 10;
+            _currentGame.score += _config.SecondsPerDifficulty[_currentGame.game.difficulty-1];
             await Task.Delay(1000);
             nextQuestion();
         }
@@ -123,6 +174,8 @@ public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         GameTime = $"{_currentGame.timePerQuestion.ToString(@"mm\:ss")}";
         Score = $"{_currentGame.score}";
     }
+
+    #region Properties
 
     private string _questionText;
     [Binding]
@@ -231,6 +284,7 @@ public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         }
     }
 
+    #endregion
 
     public event PropertyChangedEventHandler PropertyChanged;
     protected void OnPropertyChanged([CallerMemberName] string propertyName = "") =>

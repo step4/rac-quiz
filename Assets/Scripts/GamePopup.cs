@@ -41,11 +41,11 @@ public class GamePopup : MonoBehaviour
             toggleComponent.onValueChanged.AddListener((_) => {
                 if (toggleComponent.isOn) {
                     textComponent.color = Color.white;
-                    ViewModel.AddSelection(toggleComponent);
+                    //ViewModel.AddSelection(toggleComponent);
                 }
                 else {
                     textComponent.color = _unselectedTextColor;
-                    ViewModel.RemoveSelection(toggleComponent);
+                    //ViewModel.RemoveSelection(toggleComponent);
                 }
                 
             });
