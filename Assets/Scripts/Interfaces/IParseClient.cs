@@ -12,4 +12,5 @@ public interface IParseClient
     Task<List<Course>> GetCourses(string studyProgramId);
 
     Task<Game> CreateGame(int numberOfQuestions, int difficulty, bool withTimer, string courseId);
+    Task FinishGame(string gameId, List<GivenAnswer> givenAnswers);
 }

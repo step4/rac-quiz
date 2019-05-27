@@ -168,6 +168,7 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
         var selectedCourseId = SelectedCoursesId[0];
         var game = await _parseClient.CreateGame(numberOfQuestions, (int)Difficulty, OnTime, selectedCourseId);
         _newGame.game = game;
+        _newGame.rightAnswerCount = 0;
         _navigation.SetRoot("GameScreen");
     }
 

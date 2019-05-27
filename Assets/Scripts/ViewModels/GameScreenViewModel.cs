@@ -158,6 +158,7 @@ public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         if (isRight)
         {
             _currentGame.score += _config.SecondsPerDifficulty[_currentGame.game.difficulty-1];
+            _currentGame.rightAnswerCount++;
             await Task.Delay(1000);
             nextQuestion();
         }

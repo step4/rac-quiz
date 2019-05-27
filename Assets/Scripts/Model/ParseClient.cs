@@ -119,4 +119,12 @@ public class ParseClient : MonoBehaviour, IParseClient
 
         return _deserializeParseObject<ParseObjectResponse<Game>, Game>(gameJson);
     }
+
+    public async Task FinishGame(string gameId, List<GivenAnswer> givenAnswers)
+    {
+        var finishGameRequest = new FinishGameRequest{givenAnswers = givenAnswers,gameId = gameId};
+        var json = JsonConvert.SerializeObject(finishGameRequest);
+
+        await _postWithData("functions/finish_game", json);
+    }
 }

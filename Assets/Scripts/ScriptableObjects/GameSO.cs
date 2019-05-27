@@ -10,4 +10,5 @@ public class GameSO : ScriptableObject
     public int currentQuestion;
     public TimeSpan timePerQuestion;
     public int score;
+    public int rightAnswerCount;
 }
