@@ -3,5 +3,6 @@ public enum ScreenAnimation
 {
     Fade,
     ModalCenter,
-    ModalUp
+    ModalUp,
+    Close
 }

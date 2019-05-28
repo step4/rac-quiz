@@ -32,6 +32,7 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         _uniWebView = UniWebViewGO.GetComponent<UniWebView>();
         _navigation = NavigationGO.GetComponent<INavigation>();
 
+
         _playerConfig.Reset();
         //UniWebViewLogger.Instance.LogLevel = UniWebViewLogger.Level.Verbose;
         UniWebView.ClearCookies();
@@ -87,9 +88,9 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         {
             var isSuccess = await FetchPlayer();
             if (isSuccess)
-                _navigation.Push("UserScreen");
+                _navigation.Push("UserScreen", ScreenAnimation.Fade);
             else
-                _navigation.Push("StudyProgramScreen");
+                _navigation.Push("StudyProgramScreen",ScreenAnimation.Fade);
         }
         catch (Exception ex)
         {

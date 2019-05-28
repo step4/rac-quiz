@@ -18,6 +18,7 @@ public class ActiveScreenInEditor : MonoBehaviour
                     if (i != siblingIndex)
                     {
                         var sibling = transform.parent.GetChild(i);
+                        if (sibling.name == "BG") continue;
                         sibling.gameObject.SetActive(false);
                     }
                 }

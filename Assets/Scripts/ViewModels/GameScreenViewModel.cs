@@ -37,6 +37,7 @@ public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     {
         _parseClient = ParseClientGO.GetComponent<IParseClient>();
         _navigation = NavigationGO.GetComponent<INavigation>();
+
     }
 
     private void OnEnable()
@@ -75,7 +76,7 @@ public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     private void finishGame()
     {
 
-        _navigation.PushPopup("GameFinishedPopup");
+        _navigation.PushPopup("GameFinishedPopup",ScreenAnimation.ModalCenter);
     }
 
     private void startQuestion()

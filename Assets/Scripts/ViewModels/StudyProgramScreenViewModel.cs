@@ -26,7 +26,6 @@ public class StudyProgramScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     {
         _parseClient = ParseClientGO.GetComponent<IParseClient>();
         _navigation = NavigationGO.GetComponent<INavigation>();
-        
     }
 
     void OnEnable() {
@@ -52,7 +51,7 @@ public class StudyProgramScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         _playerConfig.StudyProgramId = id;
         _playerConfig.StudyProgramSprite = sprite;
         await _parseClient.SetStudyProgram(id);
-        _navigation.SetRoot("UserScreen");
+        _navigation.SetRoot("UserScreen", ScreenAnimation.Fade);
     }
     
 

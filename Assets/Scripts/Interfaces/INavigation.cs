@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 public interface INavigation
 {
-    void Push(string screenName);
-    void Push(GameObject screen);
-    void PushPopup(string screenName);
-    void PushPopup(GameObject screen);
-    GameObject Pop();
-    GameObject PopPopup();
+    void Push(string screenName, ScreenAnimation screenAnimation);
+    void Push(GameObject screen, ScreenAnimation screenAnimation);
+    void PushPopup(string screenName, ScreenAnimation screenAnimation);
+    void PushPopup(GameObject screen, ScreenAnimation screenAnimation);
+    GameObject Pop(ScreenAnimation screenAnimation);
+    GameObject PopPopup(ScreenAnimation screenAnimation);
 
-    void SetRoot(GameObject rootScreen);
-    void SetRoot(string rootScreenName);
+    void SetRoot(GameObject rootScreen, ScreenAnimation screenAnimation);
+    void SetRoot(string rootScreenName, ScreenAnimation screenAnimation);
 }

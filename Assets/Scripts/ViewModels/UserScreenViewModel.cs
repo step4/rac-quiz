@@ -28,7 +28,6 @@ public class UserScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         _parseClient = ParseClientGO.GetComponent<IParseClient>();
         _navigation = NavigationGO.GetComponent<INavigation>();
         _avatarClient = AvatarClientGO.GetComponent<IAvatarClient>();
-
         if (PlayerConfig.Avatar==null)
         {
             SetAvatar();
@@ -126,13 +125,13 @@ public class UserScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     [Binding]
     public void OpenSettings()
     {
-        _navigation.Push("StudyProgramScreen");
+        _navigation.Push("StudyProgramScreen", ScreenAnimation.Fade);
     }
 
     [Binding]
     public void OpenGamePopup()
     {
-        _navigation.PushPopup("GamePopup");
+        _navigation.PushPopup("GamePopup", ScreenAnimation.ModalCenter);
     }
     
 

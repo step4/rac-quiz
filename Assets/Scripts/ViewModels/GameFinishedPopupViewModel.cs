@@ -32,6 +32,7 @@ public class GameFinishedPopupViewModel : MonoBehaviour, INotifyPropertyChanged
     {
         _parseClient = ParseClientGO.GetComponent<IParseClient>();
         _navigation = NavigationGO.GetComponent<INavigation>();
+
     }
 
     private void OnEnable()
@@ -143,7 +144,7 @@ public class GameFinishedPopupViewModel : MonoBehaviour, INotifyPropertyChanged
     [Binding]
     public void BackToUserScreen()
     {
-        _navigation.SetRoot("UserScreen");
+        _navigation.SetRoot("UserScreen", ScreenAnimation.Fade);
     }
 
     public event PropertyChangedEventHandler PropertyChanged;

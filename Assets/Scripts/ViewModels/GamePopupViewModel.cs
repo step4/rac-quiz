@@ -37,6 +37,7 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
     {
         _parseClient = ParseClientGO.GetComponent<IParseClient>();
         _navigation = NavigationGO.GetComponent<INavigation>();
+
         Difficulty = 1;
     }
 
@@ -156,7 +157,7 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
     [Binding]
     public void ClosePopup()
     {
-        _navigation.PopPopup();
+        _navigation.PopPopup(ScreenAnimation.Close);
     }
 
     [Binding]
@@ -169,7 +170,7 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
         var game = await _parseClient.CreateGame(numberOfQuestions, (int)Difficulty, OnTime, selectedCourseId);
         _newGame.game = game;
         _newGame.rightAnswerCount = 0;
-        _navigation.SetRoot("GameScreen");
+        _navigation.SetRoot("GameScreen", ScreenAnimation.Fade);
     }
 
     private async void populateListView()
