@@ -7,7 +7,7 @@ public class ConfigSO : ScriptableObject
 {
     private void Awake()
     {
-        SessionToken = PlayerPrefs.GetString("SESSION_TOKEN", "");
+        SessionToken = PlayerPrefs.GetString("SESSION_TOKEN", SessionToken);
         Debug.Log("session from pref: " + SessionToken);
     }
     [Header("Parse Settings")]

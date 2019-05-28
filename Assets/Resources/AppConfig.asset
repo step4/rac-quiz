@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54bb00019cb8cf646925bb1d131007bb, type: 3}
   m_Name: AppConfig
   m_EditorClassIdentifier: 
-  _sessionToken: 
-  LoginUrl: https://www.rheinahrcampus.de/racmt4/auth/login
+  _sessionToken: r:88300ec0aa6681523f2e7ab65e02b1f1
+  LoginUrl: https://rheinahrcampus.de/racmt4/auth/login
   ParseApi: https://www.rheinahrcampus.de/racmt4/api
   ParseAppId: hochschulQuiz
   ShortGameCount: 2
