@@ -70,8 +70,27 @@ public class ParseClient : MonoBehaviour, IParseClient
         }
     }
 
-    private List<K> _deserializeParseList<T,K>(string json) where T : ParseListResponse<K> => JsonConvert.DeserializeObject<T>(json).result;
-    private K _deserializeParseObject<T,K>(string json) where T : ParseObjectResponse<K> => JsonConvert.DeserializeObject<T>(json).result;
+    private List<K> _deserializeParseList<T, K>(string json) where T : ParseListResponse<K>
+    {
+        try
+        {
+            return JsonConvert.DeserializeObject<T>(json).result;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+    private K _deserializeParseObject<T, K>(string json) where T : ParseObjectResponse<K> {
+        try
+        {
+            return JsonConvert.DeserializeObject<T>(json).result;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    } 
     public async Task<List<Faculty>> GetStudyPrograms()
     {
         var studyProgramsJson = await _postWithEmptyString("functions/get_studyprograms");

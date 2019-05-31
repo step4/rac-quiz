@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityWeld.Binding;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 [Binding]
 public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
@@ -164,14 +165,21 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
     [Binding]
     public async void StartGame()
     {
-        //TODO: Fehlermeldung
-        if (SelectedCoursesId.Count < 1) return;
-        var numberOfQuestions = LongGame ? _config.LongGameCount : _config.ShortGameCount;
-        var selectedCourseId = SelectedCoursesId[0];
-        var game = await _parseClient.CreateGame(numberOfQuestions, (int)Difficulty, OnTime, selectedCourseId);
-        _newGame.game = game;
-        _newGame.rightAnswerCount = 0;
-        _navigation.SetRoot("GameScreen", ScreenAnimation.Fade);
+        try
+        {
+            if (SelectedCoursesId.Count < 1) throw new Exception("No course selected");
+            var numberOfQuestions = LongGame ? _config.LongGameCount : _config.ShortGameCount;
+            var selectedCourseId = SelectedCoursesId[0];
+            var game = await _parseClient.CreateGame(numberOfQuestions, (int)Difficulty, OnTime, selectedCourseId);
+            _newGame.game = game;
+            _newGame.rightAnswerCount = 0;
+            _navigation.SetRoot("GameScreen", ScreenAnimation.Fade);
+        }
+        catch (System.Exception ex)
+        {
+            _navigation.PushModal("Fehler beim Starten des Quiz!", "Ok", ModalIcon.Error);
+        }
+
     }
 
     private async void populateListView()
