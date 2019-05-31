@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-
-    public class StudyProgram
+[System.Serializable]
+public class StudyProgram
     {
     public string name;
     public string shortName;

@@ -186,7 +186,7 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
     {
         try
         {
-            var courses = await Task.Run(()=> _parseClient.GetCourses(_playerConfig.StudyProgramId));
+            var courses = await _parseClient.GetCourses(_playerConfig.StudyProgramId);
             courses.Sort((course1, course2) => {
                 return string.Compare(course1.name, course2.name, System.StringComparison.Ordinal);
             });
@@ -207,6 +207,7 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
         }
         catch (System.Exception ex)
         {
+            _navigation.PopPopup(ScreenAnimation.Close);
             _navigation.PushModal("Fehler beim Laden der Vorlesungen!", "Ok", ModalIcon.Error);
         }
        

@@ -16,6 +16,6 @@ MonoBehaviour:
   LoginUrl: https://www.rheinahrcampus.de/racmt4/auth/login
   ParseApi: https://www.rheinahrcampus.de/racmt4/api
   ParseAppId: hochschulQuiz
-  ShortGameCount: 0
-  LongGameCount: 0
-  SecondsPerDifficulty: 
+  ShortGameCount: 2
+  LongGameCount: 3
+  SecondsPerDifficulty: 0a000000140000001e000000

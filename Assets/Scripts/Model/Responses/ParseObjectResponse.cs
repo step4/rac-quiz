@@ -1,6 +1,6 @@
-﻿
-    class ParseObjectResponse<T>
+﻿[System.Serializable]
+class ParseObjectResponse<T>
     {
-        public T result { get; set; }
+    public T result;
     }
 

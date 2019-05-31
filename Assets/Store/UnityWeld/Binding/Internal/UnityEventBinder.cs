@@ -1,10 +1,13 @@
 using System;
 using System.Linq;
 using UnityEngine.Events;
+using UnityEngine.Scripting;
 using UnityWeld.Binding.Exceptions;
+
 
 namespace UnityWeld.Binding.Internal
 {
+    [Preserve]
     /// <summary>
     /// Factory for adding the correct type of listener to a generic UnityEvent, given a view model and 
     /// the name of a method in that view model to bind the UnityEvent to.
@@ -46,7 +49,7 @@ namespace UnityWeld.Binding.Internal
             
         }
     }
-
+    [Preserve]
     /// <summary>
     /// Abstract class for generic event binders to inherit from.
     /// </summary>
@@ -54,7 +57,7 @@ namespace UnityWeld.Binding.Internal
     {
         public abstract void Dispose();
     }
-
+    [Preserve]
     internal class UnityEventBinder : UnityEventBinderBase
     {
         private UnityEvent unityEvent;
@@ -83,7 +86,7 @@ namespace UnityWeld.Binding.Internal
             action();
         }
     }
-
+    [Preserve]
     internal class UnityEventBinder<T0> : UnityEventBinderBase
     {
         private UnityEvent<T0> unityEvent;
@@ -112,7 +115,7 @@ namespace UnityWeld.Binding.Internal
             action();
         }
     }
-
+    [Preserve]
     internal class UnityEventBinder<T0, T1> : UnityEventBinderBase
     {
         private UnityEvent<T0, T1> unityEvent;

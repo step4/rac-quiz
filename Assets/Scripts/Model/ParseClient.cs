@@ -4,7 +4,6 @@ using System.Net.Http;
 using UnityEngine;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
-using Newtonsoft.Json;
 using System.Net;
 
 public class ParseClient : MonoBehaviour, IParseClient
@@ -70,27 +69,12 @@ public class ParseClient : MonoBehaviour, IParseClient
         }
     }
 
-    private List<K> _deserializeParseList<T, K>(string json) where T : ParseListResponse<K>
-    {
-        try
-        {
-            return JsonConvert.DeserializeObject<T>(json).result;
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-    }
+    private List<K> _deserializeParseList<T,K>(string json) where T : ParseListResponse<K> => JsonUtility.FromJson<T>(json).result;
     private K _deserializeParseObject<T, K>(string json) where T : ParseObjectResponse<K> {
-        try
-        {
-            return JsonConvert.DeserializeObject<T>(json).result;
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-    } 
+        var x = JsonUtility.FromJson<T>(json);
+        return x.result;
+    }
+
     public async Task<List<Faculty>> GetStudyPrograms()
     {
         var studyProgramsJson = await _postWithEmptyString("functions/get_studyprograms");
@@ -100,7 +84,7 @@ public class ParseClient : MonoBehaviour, IParseClient
     public async Task SetStudyProgram(string id)
     {
         var studyProgramId = new StudyProgramId() { id = id };
-        var json = JsonConvert.SerializeObject(studyProgramId);
+        var json = JsonUtility.ToJson(studyProgramId);
 
         await _postWithData("functions/set_studyprogram", json);
     }
@@ -108,13 +92,14 @@ public class ParseClient : MonoBehaviour, IParseClient
     public async Task<PlayerConfig> GetUserMe()
     {
         var getMeJson = await _postWithEmptyString("functions/get_me");
-        return _deserializeParseObject<ParseObjectResponse<PlayerConfig>, PlayerConfig>(getMeJson);
+        var res = _deserializeParseObject<ParseObjectResponse<PlayerConfig>, PlayerConfig>(getMeJson);
+        return res;
     }
 
     public async Task<StudyProgram> GetStudyProgram(string id)
     {
         var studyProgramId = new StudyProgramId() { id = id };
-        var json = JsonConvert.SerializeObject(studyProgramId);
+        var json = JsonUtility.ToJson(studyProgramId);
 
         var studyProgramJson = await _postWithData("functions/get_studyprogram", json);
         return _deserializeParseObject<ParseObjectResponse<StudyProgram>, StudyProgram>(studyProgramJson);
@@ -123,7 +108,7 @@ public class ParseClient : MonoBehaviour, IParseClient
     public async Task<List<Course>> GetCourses(string studyProgramId)
     {
         var studyProgramIdRequest = new StudyProgramId() { id = studyProgramId };
-        var json = JsonConvert.SerializeObject(studyProgramIdRequest);
+        var json = JsonUtility.ToJson(studyProgramIdRequest);
 
         var coursesJson = await _postWithData("functions/get_courses", json);
         return _deserializeParseList<ParseListResponse<Course>, Course>(coursesJson);
@@ -132,7 +117,7 @@ public class ParseClient : MonoBehaviour, IParseClient
     public async Task<Game> CreateGame(int numberOfQuestions, int difficulty, bool withTimer, string courseId)
     {
         var newGameRequest = new GameOptions() { courseId = courseId, difficulty = difficulty, withTimer = withTimer, numberOfQuestions = numberOfQuestions };
-        var json = JsonConvert.SerializeObject(newGameRequest);
+        var json = JsonUtility.ToJson(newGameRequest);
 
         var gameJson = await _postWithData("functions/create_game", json);
 
@@ -142,7 +127,7 @@ public class ParseClient : MonoBehaviour, IParseClient
     public async Task FinishGame(string gameId, List<GivenAnswer> givenAnswers)
     {
         var finishGameRequest = new FinishGameRequest{givenAnswers = givenAnswers,gameId = gameId};
-        var json = JsonConvert.SerializeObject(finishGameRequest);
+        var json = JsonUtility.ToJson(finishGameRequest);
 
         await _postWithData("functions/finish_game", json);
     }

@@ -1,0 +1,5 @@
+﻿<linker>
+    <assembly fullname="UnityWeld" preserve="all"/>
+    <assembly fullname="UnityWeld.Binding" preserve="all"/>
+    <assembly fullname="UnityWeld.Binding.Internal" preserve="all"/>
+</linker>
