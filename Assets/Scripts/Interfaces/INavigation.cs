@@ -10,4 +10,6 @@ public interface INavigation
 
     void SetRoot(GameObject rootScreen, ScreenAnimation screenAnimation);
     void SetRoot(string rootScreenName, ScreenAnimation screenAnimation);
+
+    void PushModal(string message, string buttonText, ModalIcon icon);
 }

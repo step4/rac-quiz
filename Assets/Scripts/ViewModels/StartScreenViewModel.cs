@@ -25,7 +25,7 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     private UniWebView _uniWebView;
     private INavigation _navigation;
 
-
+    private bool loginTried = false;
     private void Awake()
     {
         _parseClient = ParseClientGO.GetComponent<IParseClient>();
@@ -34,7 +34,7 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
 
 
         _playerConfig.Reset();
-        //UniWebViewLogger.Instance.LogLevel = UniWebViewLogger.Level.Verbose;
+        UniWebViewLogger.Instance.LogLevel = UniWebViewLogger.Level.Verbose;
         UniWebView.ClearCookies();
 
         _parseClient.SetSessionToken(_config.SessionToken);
@@ -94,9 +94,18 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            Debug.LogError(ex);
-            Debug.LogError("Open WebLogin");
-            OpenWebViewLogin();
+            if (loginTried)
+            {
+                _navigation.PushModal("Fehler beim Einloggen!", "Zurück", ModalIcon.Error);
+                loginTried = false;
+            }
+            else
+            {
+                Debug.LogError(ex);
+                Debug.LogError("Open WebLogin");
+                loginTried = true;
+                OpenWebViewLogin();
+            }
         }
 
 

@@ -9,7 +9,11 @@ public class Navigation : MonoBehaviour, INavigation
     public GameObject ScreenTree;
     public Dictionary<string, GameObject> Screens;
     public GameObject FirstScreen;
+    public GameObject ModalBG;
+
     public int SplashDelay;
+
+    public ModalSettingsSO ModalSettings;
 
     [SerializeField]
     private Stack<GameObject> _navigationStack;
@@ -24,7 +28,7 @@ public class Navigation : MonoBehaviour, INavigation
         for (int i = 0; i < _screenCount; i++)
         {
             var screen = ScreenTree.transform.GetChild(i);
-            if(screen.name=="BG")continue;
+            if(screen.name=="BG"|| screen.name == "ModalBG") continue;
 
             var canvasGroup = screen.GetComponent<CanvasGroup>();
             canvasGroup.alpha = 0;
@@ -44,6 +48,7 @@ public class Navigation : MonoBehaviour, INavigation
 
     public void Push(GameObject screen, ScreenAnimation screenAnimation)
     {
+        ModalBG.SetActive(false);
         if (_navigationStack.Count > 0)
         {
             var lastScreen = _navigationStack.Peek();
@@ -57,6 +62,7 @@ public class Navigation : MonoBehaviour, INavigation
 
     public void PushPopup(GameObject screen, ScreenAnimation screenAnimation)
     {
+        ModalBG.SetActive(true);
         _navigationStack.Push(screen);
         screen.SetActive(true);
         screen.GetComponent<Animator>().SetTrigger(screenAnimation.ToString());
@@ -91,6 +97,7 @@ public class Navigation : MonoBehaviour, INavigation
 
     public GameObject PopPopup(ScreenAnimation screenAnimation)
     {
+        ModalBG.SetActive(false);
         GameObject lastScreen;
         if (_navigationStack.Count > 1)
         {
@@ -106,6 +113,7 @@ public class Navigation : MonoBehaviour, INavigation
 
     public void SetRoot(GameObject rootScreen, ScreenAnimation screenAnimation)
     {
+        ModalBG.SetActive(false);
         _navigationStack = new Stack<GameObject>();
 
         foreach (var screen in Screens.Values)
@@ -119,5 +127,13 @@ public class Navigation : MonoBehaviour, INavigation
     {
         var screen = Screens[rootScreenName];
         SetRoot(screen, screenAnimation);
+    }
+
+    public void PushModal(string message = "Fehler", string buttonText="Ok!", ModalIcon icon = ModalIcon.Error)
+    {
+        ModalSettings.Message = message;
+        ModalSettings.ButtonText = buttonText;
+        ModalSettings.ModalIcon = ModalSettings.ModalSprites[(int)icon];
+        PushPopup("ModalPopup", ScreenAnimation.ModalCenter);
     }
 }

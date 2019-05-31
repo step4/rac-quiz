@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityWeld.Binding;
 using System.Linq;
+using System.Threading.Tasks;
 
 [Binding]
 public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
@@ -175,23 +176,32 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
 
     private async void populateListView()
     {
-        var courses = await _parseClient.GetCourses(_playerConfig.StudyProgramId);
-        courses.Sort((course1, course2) => {
-            return course1.name.CompareTo(course2.name);
-        });
-        Courses = new ObservableList<CourseViewModel>();
-        courses.ForEach(course => {
-            var courseViewModel = new CourseViewModel {
-                CourseId = course.id,
-                CourseText = course.name,
-                CoursePressed = courseTapped,
-                Selected = false,
-                SelectedTextColor = Color.white,
-                UnselectedTextColor = _unselectedTextColor,
-                TextColor = _unselectedTextColor
-            };
-            Courses.Add(courseViewModel);
-        });
+        try
+        {
+            var courses = await Task.Run(()=> _parseClient.GetCourses(_playerConfig.StudyProgramId));
+            courses.Sort((course1, course2) => {
+                return string.Compare(course1.name, course2.name, System.StringComparison.Ordinal);
+            });
+            Courses = new ObservableList<CourseViewModel>();
+            courses.ForEach(course => {
+                var courseViewModel = new CourseViewModel
+                {
+                    CourseId = course.id,
+                    CourseText = course.name,
+                    CoursePressed = courseTapped,
+                    Selected = false,
+                    SelectedTextColor = Color.white,
+                    UnselectedTextColor = _unselectedTextColor,
+                    TextColor = _unselectedTextColor
+                };
+                Courses.Add(courseViewModel);
+            });
+        }
+        catch (System.Exception ex)
+        {
+            _navigation.PushModal("Fehler beim Laden der Vorlesungen!", "Ok", ModalIcon.Error);
+        }
+       
     }
 
     private void courseTapped(string courseId, bool selected)

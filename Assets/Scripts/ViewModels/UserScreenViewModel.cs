@@ -133,7 +133,13 @@ public class UserScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     {
         _navigation.PushPopup("GamePopup", ScreenAnimation.ModalCenter);
     }
-    
+
+    [Binding]
+    public void OpenModal()
+    {
+        _navigation.PushModal("Fehler2", "yes", ModalIcon.Error);
+    }
+
 
     public event PropertyChangedEventHandler PropertyChanged;
     protected void OnPropertyChanged([CallerMemberName] string propertyName = "") =>
