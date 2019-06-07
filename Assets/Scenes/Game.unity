@@ -11662,7 +11662,7 @@ PrefabInstance:
     - target: {fileID: 6946594993642158357, guid: b20d4da967f56d340aac4c0462ff2e79,
         type: 3}
       propertyPath: _injectSessionToken
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b20d4da967f56d340aac4c0462ff2e79, type: 3}
