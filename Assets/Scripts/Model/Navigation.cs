@@ -16,7 +16,7 @@ public class Navigation : MonoBehaviour, INavigation
     public ModalSettingsSO ModalSettings;
 
     [SerializeField]
-    private Stack<GameObject> _navigationStack;
+    private Stack<GameObject> _navigationStack = new Stack<GameObject>();
 
     private int _screenCount;
 
@@ -114,7 +114,7 @@ public class Navigation : MonoBehaviour, INavigation
     public void SetRoot(GameObject rootScreen, ScreenAnimation screenAnimation)
     {
         ModalBG.SetActive(false);
-        _navigationStack = new Stack<GameObject>();
+        _navigationStack.Clear();
 
         foreach (var screen in Screens.Values)
         {

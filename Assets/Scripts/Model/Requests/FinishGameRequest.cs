@@ -1,6 +1,6 @@
 ﻿
 using System.Collections.Generic;
-
+[System.Serializable]
 class FinishGameRequest
 {
     public string gameId;

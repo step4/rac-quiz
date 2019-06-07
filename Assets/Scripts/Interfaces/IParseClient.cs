@@ -13,4 +13,7 @@ public interface IParseClient
 
     Task<Game> CreateGame(int numberOfQuestions, int difficulty, bool withTimer, string courseId);
     Task FinishGame(string gameId, List<GivenAnswer> givenAnswers);
+
+    Task<UserResponse> Register(string username, string password, string email);
+    Task<UserResponse> Login(string username, string password);
 }

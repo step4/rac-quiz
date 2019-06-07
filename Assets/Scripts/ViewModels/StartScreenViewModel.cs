@@ -46,6 +46,30 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
             _parseClient.SetSessionToken(_config.SessionToken);
             CheckSession();
         };
+
+        
+    }
+
+    private void OnEnable()
+    {
+        if (_config.SessionToken != string.Empty)
+        {
+            CheckSession();
+        }
+    }
+
+    private void Update()
+    {
+        var rectTrans = (RectTransform)transform;
+        if (TouchScreenKeyboard.visible)
+        {
+            rectTrans.offsetMax = new Vector2 { y = TouchScreenKeyboard.area.height };
+        }
+        else
+        {
+            rectTrans.offsetMax = new Vector2 { y = 0 };
+        }
+
     }
 
     private string _sesTok;
@@ -62,22 +86,69 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
             }
         }
     }
+    private string _username;
+    [Binding]
+    public string Username
+    {
+        get => _username;
+        set
+        {
+            if (value != _username)
+            {
+                _username = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    private string _password;
+    [Binding]
+    public string Password
+    {
+        get => _password;
+        set
+        {
+            if (value != _password)
+            {
+                _password = value;
+                OnPropertyChanged();
+            }
+        }
+    }
 
     [Binding]
-    public void Login()
+    public async void Login()
     {
-#if UNITY_EDITOR_WIN
-        CheckSession();
-#elif UNITY_WEBGL
-        CheckSession();
-#else
-        CheckSession();
-#endif
+        //#if UNITY_EDITOR_WIN
+        //        CheckSession();
+        //#elif UNITY_WEBGL
+        //        CheckSession();
+        //#else
+        //        CheckSession();
+        //#endif
+        
+        try
+        {
+            var user = await _parseClient.Login(Username, Password);
+            _config.SessionToken = user.sessionToken;
+            _parseClient.SetSessionToken(user.sessionToken);
+            CheckSession();
+        }
+        catch (Exception)
+        {
+            _navigation.PushModal("Fehler beim Einloggen!", "Zurück", ModalIcon.Error);
+        }
+    }
+
+    [Binding]
+    public void Register()
+    {
+        _navigation.Push("RegisterPopup", ScreenAnimation.ModalCenter);
     }
 
     private void OpenWebViewLogin()
     {
-        _uniWebView.AddSslExceptionDomain("rheinahrcampus.de");
+        //_uniWebView.AddSslExceptionDomain("rheinahrcampus.de");
         _uniWebView.Load(_config.LoginUrl);
         _uniWebView.Show();
     }
@@ -88,24 +159,26 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         {
             var isSuccess = await FetchPlayer();
             if (isSuccess)
-                _navigation.Push("UserScreen", ScreenAnimation.Fade);
+                _navigation.SetRoot("UserScreen", ScreenAnimation.Fade);
             else
-                _navigation.Push("StudyProgramScreen",ScreenAnimation.Fade);
+                _navigation.SetRoot("StudyProgramScreen", ScreenAnimation.Fade);
         }
         catch (Exception ex)
         {
-            if (loginTried)
-            {
-                _navigation.PushModal("Fehler beim Einloggen!", "Zurück", ModalIcon.Error);
-                loginTried = false;
-            }
-            else
-            {
-                Debug.LogError(ex);
-                Debug.LogError("Open WebLogin");
-                loginTried = true;
-                OpenWebViewLogin();
-            }
+            _config.SessionToken = string.Empty;
+            _navigation.PushModal("Fehler: Session abgelaufen.\nBitte neu einloggen!", "Zurück", ModalIcon.Error);
+            //if (loginTried)
+            //{
+            //    _navigation.PushModal("Fehler: Session abgelaufen.\nBitte neu einloggen!", "Zurück", ModalIcon.Error);
+            //    loginTried = false;
+            //}
+            //else
+            //{
+            //    Debug.LogError(ex);
+            //    Debug.LogError("Open WebLogin");
+            //    loginTried = true;
+            //    OpenWebViewLogin();
+            //}
         }
 
 
@@ -118,13 +191,13 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         _playerConfig.AvatarUrl = playerSettings.avatarUrl;
         _playerConfig.PlayerName = playerSettings.playerName;
 
-        if (_playerConfig.StudyProgramId!="")
+        if (_playerConfig.StudyProgramId != "")
         {
-        var studyProgram = await _parseClient.GetStudyProgram(_playerConfig.StudyProgramId);
-        _playerConfig.StudyProgram = studyProgram.name;
-        _playerConfig.StudyProgramShort = studyProgram.shortName;
+            var studyProgram = await _parseClient.GetStudyProgram(_playerConfig.StudyProgramId);
+            _playerConfig.StudyProgram = studyProgram.name;
+            _playerConfig.StudyProgramShort = studyProgram.shortName;
 
-        _playerConfig.StudyProgramSprite = convertImageBase64ToSprite(studyProgram.iconB64);
+            _playerConfig.StudyProgramSprite = convertImageBase64ToSprite(studyProgram.iconB64);
             return true;
         }
         return false;

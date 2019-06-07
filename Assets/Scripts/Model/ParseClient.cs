@@ -131,4 +131,22 @@ public class ParseClient : MonoBehaviour, IParseClient
 
         await _postWithData("functions/finish_game", json);
     }
+
+    public async Task<UserResponse> Register(string username, string password, string email)
+    {
+        var registerRequest = new RegisterRequest { username = username, password = password, email = email };
+        var json = JsonUtility.ToJson(registerRequest);
+
+        var userJson = await _postWithData("users", json);
+        return JsonUtility.FromJson<UserResponse>(userJson);
+    }
+
+    public async Task<UserResponse> Login(string username, string password)
+    {
+        var registerRequest = new LoginRequest { username = username, password = password };
+        var json = JsonUtility.ToJson(registerRequest);
+
+        var userJson = await _postWithData("login", json);
+        return JsonUtility.FromJson<UserResponse>(userJson);
+    }
 }

@@ -1,4 +1,4 @@
-﻿
+﻿[System.Serializable]
 public class GameOptions
 {
     public int numberOfQuestions;
