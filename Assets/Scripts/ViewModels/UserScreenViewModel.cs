@@ -45,6 +45,7 @@ public class UserScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         AvatarSprite = PlayerConfig.Avatar;
         StudyProgramShort = PlayerConfig.StudyProgramShort;
         StudyProgramSprite = PlayerConfig.StudyProgramSprite;
+        Username = PlayerConfig.PlayerName;
     }
 
     private Sprite _avatarSprite;

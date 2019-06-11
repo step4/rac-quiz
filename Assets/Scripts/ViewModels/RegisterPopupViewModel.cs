@@ -84,9 +84,29 @@ public class RegisterPopupViewModel : MonoBehaviour, INotifyPropertyChanged
         }
     }
 
+    private string _passwordConfirm;
+    [Binding]
+    public string PasswordConfirm
+    {
+        get => _passwordConfirm;
+        set
+        {
+            if (value != _passwordConfirm)
+            {
+                _passwordConfirm = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
     [Binding]
     public async void Register()
     {
+        if (Password != PasswordConfirm)
+        {
+            _navigation.PushModal("Passwort stimmt nicht überein!","Zurück");
+            return;
+        }
         try
         {
             var user = await _parseClient.Register(Username, Password,Email);
@@ -98,6 +118,12 @@ public class RegisterPopupViewModel : MonoBehaviour, INotifyPropertyChanged
         {
             _navigation.PushModal("Fehler beim Registrieren!", "Zurück", ModalIcon.Error);
         }
+    }
+
+    [Binding]
+    public async void ClosePopup()
+    {
+        _navigation.Pop(ScreenAnimation.Fade);
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
