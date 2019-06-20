@@ -157,11 +157,12 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     {
         try
         {
+            _navigation.PushPopup("LoadingPopup", ScreenAnimation.Fade);
             var isSuccess = await FetchPlayer();
-            if (isSuccess)
-                _navigation.SetRoot("UserScreen", ScreenAnimation.Fade);
-            else
-                _navigation.SetRoot("StudyProgramScreen", ScreenAnimation.Fade);
+            await Task.Delay(500);
+            var nextScreen = isSuccess ? "UserScreen" : "StudyProgramScreen";
+            _navigation.SetRoot(nextScreen, ScreenAnimation.Fade);
+
         }
         catch (Exception ex)
         {

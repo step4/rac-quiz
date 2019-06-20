@@ -1,10 +1,10 @@
 ﻿namespace AvataaarsOptionEnums
 {
-    public enum AvatarStyle
-    {
-        //Circle,
-        Transparent,
-    }
+    //public enum AvatarStyle
+    //{
+    //    Circle,
+    //    Transparent,
+    //}
 
     public enum TopType
     {

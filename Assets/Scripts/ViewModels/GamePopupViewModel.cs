@@ -186,7 +186,9 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
     {
         try
         {
+            _navigation.PushPopup("LoadingPopup", ScreenAnimation.Fade);
             var courses = await _parseClient.GetCourses(_playerConfig.StudyProgramId);
+            await Task.Delay(500);
             courses.Sort((course1, course2) => {
                 return string.Compare(course1.name, course2.name, System.StringComparison.Ordinal);
             });
@@ -204,6 +206,7 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
                 };
                 Courses.Add(courseViewModel);
             });
+            _navigation.PopPopup(ScreenAnimation.Close);
         }
         catch (System.Exception ex)
         {

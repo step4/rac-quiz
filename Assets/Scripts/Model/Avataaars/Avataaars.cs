@@ -14,13 +14,52 @@ public class Avataaars
     {
 
     }
-    public List<string> GetEnums()
+    public Dictionary<string,List<string>> GetEnums()
     {
+        var result = new Dictionary<string, List<string>>();
         var nameSpace = "AvataaarsOptionEnums";
         Assembly asm = Assembly.GetExecutingAssembly();
-        return asm.GetTypes()
-            .Where(type => type.Namespace == nameSpace)
-            .Select(type => type.Name).ToList();
+        var types = asm.GetTypes()
+            .Where(type => type.Namespace == nameSpace);
+        foreach (var type in types)
+        {
+            result.Add(type.Name, type.GetFields().Skip(1).Select(fieldInfo => fieldInfo.Name).ToList());
+        }
+
+        return result;
+    }
+
+    public async Task<(byte[], string)> GetImage(int width, Dictionary<string, string> config)
+    {
+        var configString = convertConfigToString(config);
+        try
+        {
+            var url = $"https://avataaars.io/png/{width}?{configString}";
+            Debug.Log(url);
+            HttpResponseMessage response = await client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            byte[] image = await response.Content.ReadAsByteArrayAsync();
+            // Above three lines can be replaced with new helper method below
+            // string responseBody = await client.GetStringAsync(uri);
+
+            return (image, url);
+        }
+        catch (HttpRequestException e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
+
+    private object convertConfigToString(Dictionary<string, string> config)
+    {
+        var str = "";
+        foreach (var item in config)
+        {
+            var type = String.Join("",item.Key.Split().Select(i => Char.ToLower(i[0]) + i.Substring(1)));
+            var selectedVal = item.Value;
+            str += $"{type}={selectedVal}&";
+        }
+        return str;
     }
 
     public string GetRandomString()
@@ -47,7 +86,6 @@ public class Avataaars
     public async Task<(byte[],string)> GetRandomImage(int width)
     {
 
-        // Call asynchronous network methods in a try/catch block to handle exceptions
         try
         {
             var url = $"https://avataaars.io/png/{width}?{GetRandomString()}";

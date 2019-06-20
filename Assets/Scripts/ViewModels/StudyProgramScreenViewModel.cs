@@ -5,6 +5,7 @@ using UnityEngine;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using UnityWeld.Binding;
+using System.Threading.Tasks;
 
 [Binding]
 public class StudyProgramScreenViewModel : MonoBehaviour, INotifyPropertyChanged
@@ -38,9 +39,12 @@ public class StudyProgramScreenViewModel : MonoBehaviour, INotifyPropertyChanged
 
     async void populateScrollView()
     {
+        _navigation.PushPopup("LoadingPopup", ScreenAnimation.Fade);
         var faculties = await _parseClient.GetStudyPrograms();
+        await Task.Delay(500);
         var popup = GetComponentInChildren<StudyProgramPopup>();
         popup.Create(faculties);
+        _navigation.PopPopup(ScreenAnimation.Close);
     }
 
     [Binding]
