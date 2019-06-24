@@ -27,15 +27,16 @@ public class RegisterPopupViewModel : MonoBehaviour, INotifyPropertyChanged
     }
     private void Update()
     {
-        var rectTrans = (RectTransform)transform;
-        if (TouchScreenKeyboard.visible)
-        {
-            rectTrans.offsetMax = new Vector2 { y = TouchScreenKeyboard.area.height };
-        }
-        else
-        {
-            rectTrans.offsetMax = new Vector2 { y = 0 };
-        }
+        //var rectTrans = (RectTransform)transform;
+        
+        //if (TouchScreenKeyboard.visible)
+        //{
+        //    rectTrans.offsetMax = new Vector2 { y = TouchScreenKeyboard.area.height };
+        //}
+        //else
+        //{
+        //    rectTrans.offsetMax = new Vector2 { y = 0 };
+        //}
 
     }
 

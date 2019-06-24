@@ -612,7 +612,7 @@ MonoBehaviour:
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
-  m_HideMobileInput: 1
+  m_HideMobileInput: 0
   m_CharacterValidation: 0
   m_CharacterLimit: 0
   m_OnEndEdit:
@@ -5052,7 +5052,7 @@ MonoBehaviour:
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
-  m_HideMobileInput: 1
+  m_HideMobileInput: 0
   m_CharacterValidation: 0
   m_CharacterLimit: 0
   m_OnEndEdit:
@@ -5642,7 +5642,7 @@ MonoBehaviour:
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
-  m_HideMobileInput: 1
+  m_HideMobileInput: 0
   m_CharacterValidation: 0
   m_CharacterLimit: 0
   m_OnEndEdit:
@@ -6108,7 +6108,7 @@ MonoBehaviour:
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
-  m_HideMobileInput: 1
+  m_HideMobileInput: 0
   m_CharacterValidation: 0
   m_CharacterLimit: 0
   m_OnEndEdit:
@@ -7128,16 +7128,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 367532078}
     m_Modifications:
-    - target: {fileID: -1138864927544484426, guid: e200382a0761a461fb870c2285d8b2a1,
-        type: 3}
-      propertyPath: viewEventName
-      value: UnityEngine.UI.Button.onClick
-      objectReference: {fileID: 0}
-    - target: {fileID: -1138864927544484426, guid: e200382a0761a461fb870c2285d8b2a1,
-        type: 3}
-      propertyPath: viewModelMethodName
-      value: AvatarScreenViewModel.Save
-      objectReference: {fileID: 0}
     - target: {fileID: 5306338386296345708, guid: e200382a0761a461fb870c2285d8b2a1,
         type: 3}
       propertyPath: m_Name
@@ -7247,6 +7237,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -1138864927544484426, guid: e200382a0761a461fb870c2285d8b2a1,
+        type: 3}
+      propertyPath: viewEventName
+      value: UnityEngine.UI.Button.onClick
+      objectReference: {fileID: 0}
+    - target: {fileID: -1138864927544484426, guid: e200382a0761a461fb870c2285d8b2a1,
+        type: 3}
+      propertyPath: viewModelMethodName
+      value: AvatarScreenViewModel.Save
       objectReference: {fileID: 0}
     - target: {fileID: 5306338386495769995, guid: e200382a0761a461fb870c2285d8b2a1,
         type: 3}
@@ -11274,7 +11274,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1457531658}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -12151,6 +12151,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1315055324}
     m_Modifications:
+    - target: {fileID: 1900085666445226, guid: 7e3f16a6f6303419cbd9837f6c746de4, type: 3}
+      propertyPath: m_Name
+      value: UniWebView
+      objectReference: {fileID: 0}
+    - target: {fileID: 1900085666445226, guid: 7e3f16a6f6303419cbd9837f6c746de4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4960404783511462, guid: 7e3f16a6f6303419cbd9837f6c746de4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 540
@@ -12194,14 +12202,6 @@ PrefabInstance:
     - target: {fileID: 4960404783511462, guid: 7e3f16a6f6303419cbd9837f6c746de4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1900085666445226, guid: 7e3f16a6f6303419cbd9837f6c746de4, type: 3}
-      propertyPath: m_Name
-      value: UniWebView
-      objectReference: {fileID: 0}
-    - target: {fileID: 1900085666445226, guid: 7e3f16a6f6303419cbd9837f6c746de4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114939446366399424, guid: 7e3f16a6f6303419cbd9837f6c746de4,
         type: 3}
@@ -12522,7 +12522,7 @@ MonoBehaviour:
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
-  m_HideMobileInput: 1
+  m_HideMobileInput: 0
   m_CharacterValidation: 0
   m_CharacterLimit: 0
   m_OnEndEdit:
@@ -14279,7 +14279,7 @@ MonoBehaviour:
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
-  m_HideMobileInput: 1
+  m_HideMobileInput: 0
   m_CharacterValidation: 0
   m_CharacterLimit: 0
   m_OnEndEdit:
@@ -15110,16 +15110,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 367532078}
     m_Modifications:
-    - target: {fileID: -1138864927544484426, guid: e200382a0761a461fb870c2285d8b2a1,
-        type: 3}
-      propertyPath: viewEventName
-      value: UnityEngine.UI.Button.onClick
-      objectReference: {fileID: 0}
-    - target: {fileID: -1138864927544484426, guid: e200382a0761a461fb870c2285d8b2a1,
-        type: 3}
-      propertyPath: viewModelMethodName
-      value: AvatarScreenViewModel.GoBack
-      objectReference: {fileID: 0}
     - target: {fileID: 5306338386296345708, guid: e200382a0761a461fb870c2285d8b2a1,
         type: 3}
       propertyPath: m_Name
@@ -15229,6 +15219,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -1138864927544484426, guid: e200382a0761a461fb870c2285d8b2a1,
+        type: 3}
+      propertyPath: viewEventName
+      value: UnityEngine.UI.Button.onClick
+      objectReference: {fileID: 0}
+    - target: {fileID: -1138864927544484426, guid: e200382a0761a461fb870c2285d8b2a1,
+        type: 3}
+      propertyPath: viewModelMethodName
+      value: AvatarScreenViewModel.GoBack
       objectReference: {fileID: 0}
     - target: {fileID: 5306338386495769995, guid: e200382a0761a461fb870c2285d8b2a1,
         type: 3}
@@ -16407,7 +16407,7 @@ PrefabInstance:
         type: 3}
       propertyPath: FirstScreen
       value: 
-      objectReference: {fileID: 1457531658}
+      objectReference: {fileID: 1120499061}
     - target: {fileID: 1567312911224163407, guid: e20c5f2bcd4ed704cb6842e6f5a96f8e,
         type: 3}
       propertyPath: SplashDelay
@@ -16508,16 +16508,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1099567260}
     m_Modifications:
-    - target: {fileID: -1138864927544484426, guid: e200382a0761a461fb870c2285d8b2a1,
-        type: 3}
-      propertyPath: viewEventName
-      value: UnityEngine.UI.Button.onClick
-      objectReference: {fileID: 0}
-    - target: {fileID: -1138864927544484426, guid: e200382a0761a461fb870c2285d8b2a1,
-        type: 3}
-      propertyPath: viewModelMethodName
-      value: UserScreenViewModel.OpenGamePopup
-      objectReference: {fileID: 0}
     - target: {fileID: 5306338386296345708, guid: e200382a0761a461fb870c2285d8b2a1,
         type: 3}
       propertyPath: m_Name
@@ -16627,6 +16617,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -1138864927544484426, guid: e200382a0761a461fb870c2285d8b2a1,
+        type: 3}
+      propertyPath: viewEventName
+      value: UnityEngine.UI.Button.onClick
+      objectReference: {fileID: 0}
+    - target: {fileID: -1138864927544484426, guid: e200382a0761a461fb870c2285d8b2a1,
+        type: 3}
+      propertyPath: viewModelMethodName
+      value: UserScreenViewModel.OpenGamePopup
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e200382a0761a461fb870c2285d8b2a1, type: 3}
