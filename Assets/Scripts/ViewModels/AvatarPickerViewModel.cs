@@ -55,10 +55,10 @@ public class AvatarPickerViewModel : INotifyPropertyChanged
     [Binding]
     public void OnLeftClick()
     {
-        selectedIndex = (selectedIndex-1) % Selectables.Count;
+        selectedIndex = selectedIndex == 0 ? Selectables.Count - 1 : selectedIndex - 1;
         SelectedText = Selectables[selectedIndex];
 
-        //CoursePressed(CourseId, Selected);
+        PickerPressed(TypeText, SelectedText);
     }
 
     [Binding]
