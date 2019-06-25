@@ -8743,7 +8743,7 @@ MonoBehaviour:
   ParseClientGO: {fileID: 257642490}
   AvatarClientGO: {fileID: 231111992}
   NavigationGO: {fileID: 216778754}
-  PlayerConfig: {fileID: 11400000, guid: 0dece06fcd1060b4facacc1156fcc507, type: 2}
+  _playerConfig: {fileID: 11400000, guid: 0dece06fcd1060b4facacc1156fcc507, type: 2}
 --- !u!222 &1099567263
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11654,7 +11654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49c2518e83724b7e9e9c85d9d1ab1b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewModelMethodName: UserScreenViewModel.SetAvatar
+  viewModelMethodName: UserScreenViewModel.RandomAvatar
   viewEventName: UnityEngine.UI.Button.onClick
 --- !u!1 &1385116690
 GameObject:
