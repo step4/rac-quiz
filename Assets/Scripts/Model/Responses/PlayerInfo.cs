@@ -1,7 +1,7 @@
 ﻿
 
 [System.Serializable]
-public class PlayerConfig
+public class PlayerInfo
 {
     public string playerName;
     public string studyProgramId;

@@ -47,8 +47,8 @@ public class GameFinishedPopupViewModel : MonoBehaviour, INotifyPropertyChanged
 
     private async void UploadGameData()
     {
-        var gameId = _finishedGame.game.gameId;
-        var givenAnswers = _finishedGame.game.givenAnswers;
+        var gameId = _finishedGame.gameId;
+        var givenAnswers = _finishedGame.givenAnswers;
         await _parseClient.FinishGame(gameId, givenAnswers);
     }
 
@@ -60,10 +60,11 @@ public class GameFinishedPopupViewModel : MonoBehaviour, INotifyPropertyChanged
     private void LoadPopup()
     {
         AvatarSprite = _playerConfig.Avatar;
-        Score = _finishedGame.rightAnswerCount.ToString();
-        Count = $"x {_finishedGame.game.questions.Count.ToString()}";
-        Difficulty = $"x {_config.SecondsPerDifficulty[_finishedGame.game.difficulty - 1].ToString()}";
-        OnTime = _finishedGame.game.withTimer ? "x 2" : "x 1";
+        Score = _finishedGame.score.ToString();
+        Count = $"  {_finishedGame.rightAnswerCount} / {_finishedGame.questions.Count.ToString()}";
+        Difficulty = $"x {_config.SecondsPerDifficulty[_finishedGame.difficulty - 1].ToString()}";
+        OnTime = _finishedGame.withTimer ? "x 2" : "x 1";
+        WithTime = _finishedGame.withTimer ? "Auf Zeit:" : "Ohne Zeit:";
     }
 
     private Sprite _avatarSprite;
@@ -106,6 +107,21 @@ public class GameFinishedPopupViewModel : MonoBehaviour, INotifyPropertyChanged
             if (value != _count)
             {
                 _count = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    private string _withTime;
+    [Binding]
+    public string WithTime
+    {
+        get => _withTime;
+        set
+        {
+            if (value != _withTime)
+            {
+                _withTime = value;
                 OnPropertyChanged();
             }
         }

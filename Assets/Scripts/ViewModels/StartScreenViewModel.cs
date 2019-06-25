@@ -64,7 +64,7 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         //var heightRatio = KeyboardUtil.GetKeyboardHeightRatio();
         //if (TouchScreenKeyboard.visible)
         //{
-        //    rectTrans.offsetMax = new Vector2 { y = heightRatio*Screen.height };
+        //    rectTrans.offsetMax = new Vector2 { y = Screen.height/2 };
         //}
         //else
         //{
@@ -130,7 +130,7 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         
         try
         {
-            var user = await _parseClient.Login(Username, Password);
+            var user = await _parseClient.Login(Username, Password,_config._installationId);
             _config.SessionToken = user.sessionToken;
             _parseClient.SetSessionToken(user.sessionToken);
             CheckSession();
@@ -167,8 +167,9 @@ public class StartScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         }
         catch (Exception ex)
         {
+            _navigation.PopPopup( ScreenAnimation.Close);
             _config.SessionToken = string.Empty;
-            _navigation.PushModal("Fehler: Session abgelaufen.\nBitte neu einloggen!", "Zurück", ModalIcon.Error);
+            //_navigation.PushModal("Fehler: Session abgelaufen.\nBitte neu einloggen!", "Zurück", ModalIcon.Error);
             //if (loginTried)
             //{
             //    _navigation.PushModal("Fehler: Session abgelaufen.\nBitte neu einloggen!", "Zurück", ModalIcon.Error);

@@ -12,5 +12,6 @@ public class Game
     public bool withTimer;
     public List<GivenAnswer> givenAnswers = new List<GivenAnswer>();
     public int score;
+    public int rightAnswerCount;
 }
 

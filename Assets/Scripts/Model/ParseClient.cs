@@ -48,6 +48,7 @@ public class ParseClient : MonoBehaviour, IParseClient
         }
         catch (Exception ex)
         {
+            Debug.Log(endpoint);
             Debug.LogError(ex.Message);
             throw ex;
         }
@@ -64,13 +65,16 @@ public class ParseClient : MonoBehaviour, IParseClient
         }
         catch (Exception ex)
         {
+            Debug.Log(endpoint);
+            Debug.Log(jsonData);
             Debug.LogError(ex.Message);
             throw ex;
         }
     }
 
-    private List<K> _deserializeParseList<T,K>(string json) where T : ParseListResponse<K> => JsonUtility.FromJson<T>(json).result;
-    private K _deserializeParseObject<T, K>(string json) where T : ParseObjectResponse<K> {
+    private List<K> _deserializeParseList<T, K>(string json) where T : ParseListResponse<K> => JsonUtility.FromJson<T>(json).result;
+    private K _deserializeParseObject<T, K>(string json) where T : ParseObjectResponse<K>
+    {
         var x = JsonUtility.FromJson<T>(json);
         return x.result;
     }
@@ -89,11 +93,18 @@ public class ParseClient : MonoBehaviour, IParseClient
         await _postWithData("functions/set_studyprogram", json);
     }
 
-    public async Task<PlayerConfig> GetUserMe()
+    public async Task<PlayerInfo> GetUserMe()
     {
         var getMeJson = await _postWithEmptyString("functions/get_me");
-        var res = _deserializeParseObject<ParseObjectResponse<PlayerConfig>, PlayerConfig>(getMeJson);
-        return res;
+        return _deserializeParseObject<ParseObjectResponse<PlayerInfo>, PlayerInfo>(getMeJson);
+       
+    }
+    public async Task SetUserMe(string playerName,string studyProgramId, string avatarUrl )
+    {
+        var playerInfo = new PlayerInfo { avatarUrl = avatarUrl, playerName = playerName, studyProgramId = studyProgramId };
+        var json = JsonUtility.ToJson(playerInfo);
+
+        await _postWithData("functions/set_me", json);
     }
 
     public async Task<StudyProgram> GetStudyProgram(string id)
@@ -126,27 +137,29 @@ public class ParseClient : MonoBehaviour, IParseClient
 
     public async Task FinishGame(string gameId, List<GivenAnswer> givenAnswers)
     {
-        var finishGameRequest = new FinishGameRequest{givenAnswers = givenAnswers,gameId = gameId};
+        var finishGameRequest = new FinishGameRequest { givenAnswers = givenAnswers, gameId = gameId };
         var json = JsonUtility.ToJson(finishGameRequest);
 
         await _postWithData("functions/finish_game", json);
     }
 
-    public async Task<UserResponse> Register(string username, string password, string email)
+    public async Task<UserResponse> Register(string username, string password, string email, string installationId)
     {
-        var registerRequest = new RegisterRequest { username = username, password = password, email = email };
+        var registerRequest = new RegisterRequest { username = username, password = password, email = email, _InstallationId = installationId, _ApplicationId = _config.ParseAppId };
         var json = JsonUtility.ToJson(registerRequest);
-
+        _client.DefaultRequestHeaders.Remove("X-Parse-Application-Id");
         var userJson = await _postWithData("users", json);
+        _client.DefaultRequestHeaders.Add("X-Parse-Application-Id", _config.ParseAppId);
         return JsonUtility.FromJson<UserResponse>(userJson);
     }
 
-    public async Task<UserResponse> Login(string username, string password)
+    public async Task<UserResponse> Login(string username, string password, string installationId)
     {
-        var registerRequest = new LoginRequest { username = username, password = password };
+        var registerRequest = new LoginRequest { username = username, password = password, _InstallationId = installationId, _ApplicationId = _config.ParseAppId };
         var json = JsonUtility.ToJson(registerRequest);
-
+        _client.DefaultRequestHeaders.Remove("X-Parse-Application-Id");
         var userJson = await _postWithData("login", json);
+        _client.DefaultRequestHeaders.Add("X-Parse-Application-Id", _config.ParseAppId);
         return JsonUtility.FromJson<UserResponse>(userJson);
     }
 }

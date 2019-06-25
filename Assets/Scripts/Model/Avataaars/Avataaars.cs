@@ -34,8 +34,27 @@ public class Avataaars
         var configString = convertConfigToString(config);
         try
         {
-            var url = $"https://avataaars.io/png/{width}?{configString}";
+            var url = $"https://www.rheinahrcampus.de/racmt4/avataaars/png/{width}?{configString}";
             Debug.Log(url);
+            HttpResponseMessage response = await client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            byte[] image = await response.Content.ReadAsByteArrayAsync();
+            // Above three lines can be replaced with new helper method below
+            // string responseBody = await client.GetStringAsync(uri);
+
+            return (image, url);
+        }
+        catch (HttpRequestException e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
+
+    public async Task<(byte[], string)> GetImage(string url)
+    {
+        
+        try
+        {
             HttpResponseMessage response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
             byte[] image = await response.Content.ReadAsByteArrayAsync();
@@ -88,7 +107,7 @@ public class Avataaars
 
         try
         {
-            var url = $"https://avataaars.io/png/{width}?{GetRandomString()}";
+            var url = $"https://www.rheinahrcampus.de/racmt4/avataaars/png/{width}?{GetRandomString()}";
             //Debug.Log(url);
             HttpResponseMessage response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();

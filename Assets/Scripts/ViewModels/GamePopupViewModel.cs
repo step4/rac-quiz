@@ -171,13 +171,15 @@ public class GamePopupViewModel : MonoBehaviour, INotifyPropertyChanged
             var numberOfQuestions = LongGame ? _config.LongGameCount : _config.ShortGameCount;
             var selectedCourseId = SelectedCoursesId[0];
             var game = await _parseClient.CreateGame(numberOfQuestions, (int)Difficulty, OnTime, selectedCourseId);
-            _newGame.game = game;
+            var gameJson = JsonUtility.ToJson(game);
+            JsonUtility.FromJsonOverwrite(gameJson, _newGame);
             _newGame.rightAnswerCount = 0;
             _navigation.SetRoot("GameScreen", ScreenAnimation.Fade);
         }
         catch (System.Exception ex)
         {
             _navigation.PushModal("Fehler beim Starten des Quiz!", "Ok", ModalIcon.Error);
+            Debug.LogError(ex);
         }
 
     }

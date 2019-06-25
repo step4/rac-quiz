@@ -5,6 +5,7 @@ using UnityEngine;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using UnityWeld.Binding;
+using System.Threading.Tasks;
 
 [Binding]
 public class UserScreenViewModel : MonoBehaviour, INotifyPropertyChanged
@@ -21,16 +22,20 @@ public class UserScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     private IAvatarClient _avatarClient;
 
     [SerializeField]
-    private PlayerConfigSO PlayerConfig = default;
+    private PlayerConfigSO _playerConfig = default;
 
     private void Awake()
     {
         _parseClient = ParseClientGO.GetComponent<IParseClient>();
         _navigation = NavigationGO.GetComponent<INavigation>();
         _avatarClient = AvatarClientGO.GetComponent<IAvatarClient>();
-        if (PlayerConfig.Avatar==null)
+        if (_playerConfig.AvatarUrl==null)
         {
-            SetAvatar();
+            SetAvatar("");
+        }
+        else
+        {
+            SetAvatar(_playerConfig.AvatarUrl);
         }
         
     }
@@ -42,10 +47,10 @@ public class UserScreenViewModel : MonoBehaviour, INotifyPropertyChanged
 
     private void _loadPlayerSettings()
     {
-        AvatarSprite = PlayerConfig.Avatar;
-        StudyProgramShort = PlayerConfig.StudyProgramShort;
-        StudyProgramSprite = PlayerConfig.StudyProgramSprite;
-        Username = PlayerConfig.PlayerName;
+        AvatarSprite = _playerConfig.Avatar;
+        StudyProgramShort = _playerConfig.StudyProgramShort;
+        StudyProgramSprite = _playerConfig.StudyProgramSprite;
+        Username = _playerConfig.PlayerName;
     }
 
     private Sprite _avatarSprite;
@@ -108,25 +113,33 @@ public class UserScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         }
     }
 
+
     [Binding]
-    public async void SetAvatar()
+    public async Task RandomAvatar()
     {
-        var width = 1000;
-        var (imgData,url) = await _avatarClient.GetRandomAvatar(width);
+        await SetAvatar("");
+    }
+
+    public async Task SetAvatar(string avatarUrl)
+    {
+
+        var width = 200;
+        var (imgData,url) = avatarUrl==""?await _avatarClient.GetRandomAvatar(width):await _avatarClient.GetAvatar(avatarUrl);
+        await _parseClient.SetUserMe(_playerConfig.PlayerName,_playerConfig.StudyProgramId,url);
         var height = imgData.Length / width;
         Texture2D tex = new Texture2D(width, height);
         ImageConversion.LoadImage(tex, imgData);
         var sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.zero);
         AvatarSprite = sprite;
 
-        PlayerConfig.Avatar = sprite;
-        PlayerConfig.AvatarUrl = url;
+        _playerConfig.Avatar = sprite;
+        _playerConfig.AvatarUrl = url;
     }
 
     [Binding]
     public void OpenSettings()
     {
-        _navigation.Push("StudyProgramScreen", ScreenAnimation.Fade);
+        _navigation.Push("SettingsScreen", ScreenAnimation.Fade);
     }
 
     [Binding]

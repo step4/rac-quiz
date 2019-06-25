@@ -32,6 +32,9 @@ public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     [SerializeField]
     private Sprite _wrongAnswerSprite = default;
 
+    [SerializeField]
+    private Animator timerAC=default;
+
 
     private void Awake()
     {
@@ -44,7 +47,7 @@ public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     {
         _currentGame.currentQuestion = 0;
         _currentGame.score = 0;
-        var secondsToPlay = _config.SecondsPerDifficulty[_currentGame.game.difficulty - 1];
+        var secondsToPlay = _config.SecondsPerDifficulty[_currentGame.difficulty - 1];
         _currentGame.timePerQuestion = new TimeSpan(0, 0, secondsToPlay);
 
         updateGameInfo();
@@ -54,14 +57,34 @@ public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     {
         Answers.Clear();
     }
+
+    private TimeSpan countdown = TimeSpan.FromSeconds(0);
+    private bool questionStarted = false;
     private void Update()
     {
+        if (_currentGame.withTimer && questionStarted)
+        {
+            countdown = countdown.Subtract(TimeSpan.FromSeconds(Time.deltaTime));
+            if (countdown < TimeSpan.FromSeconds(0))
+            {
+                questionStarted = false;
+                timeElapsed();
+            }
+        }
         updateGameInfo();
+    }
+
+    private async void timeElapsed()
+    {
+        timerAC.SetTrigger("TimeIsUp");
+        await Task.Delay(1500);
+        nextQuestion();
     }
 
     private void nextQuestion()
     {
-        if (_currentGame.currentQuestion==_currentGame.game.questions.Count)
+        questionStarted = false;
+        if (_currentGame.currentQuestion == _currentGame.questions.Count)
         {
             finishGame();
             return;
@@ -76,33 +99,38 @@ public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     private void finishGame()
     {
 
-        _navigation.PushPopup("GameFinishedPopup",ScreenAnimation.ModalCenter);
+        _navigation.PushPopup("GameFinishedPopup", ScreenAnimation.ModalCenter);
     }
 
     private void startQuestion()
     {
-        print("start");
+        if (!_currentGame.withTimer) return;
+
+        var currentQuestion = _currentGame.questions[_currentGame.currentQuestion - 1];
+
+        countdown = currentQuestion.customTime == 0 ? _currentGame.timePerQuestion : TimeSpan.FromSeconds(currentQuestion.customTime);
+        print(countdown);
+        questionStarted = true;
     }
 
     private void fillQuestionAndAnswers()
     {
-        var currentQuestion = _currentGame.game.questions[_currentGame.currentQuestion-1];
+        var currentQuestion = _currentGame.questions[_currentGame.currentQuestion - 1];
         var parsedQuestionText = string.Empty;
-        if(currentQuestion.hasLatex)
-            parsedQuestionText= parseLatex(currentQuestion.questionText);
-        else
-            parsedQuestionText = $@"\text{{{currentQuestion.questionText}}}";
+
+        parsedQuestionText = parseLatex(currentQuestion.questionText);
+
 
         QuestionText = parsedQuestionText;
 
         Answers = new ObservableList<AnswerViewModel>();
         var answerIndex = 0;
-        currentQuestion.answers.ForEach(answer => {
+        currentQuestion.answers.ForEach(answer =>
+        {
             var parsedAnswerText = string.Empty;
-            if (answer.hasLatex)
-                parsedAnswerText = parseLatex(answer.answerText);
-            else
-                parsedAnswerText = $@"\text{{{answer.answerText}}}";
+
+            parsedAnswerText = parseLatex(answer.answerText);
+
 
             var answerViewModel = new AnswerViewModel
             {
@@ -121,32 +149,61 @@ public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     private string parseLatex(string inputText)
     {
         var text = string.Empty;
-        var delimeter = '$';
-        var startswithFormula = inputText[0] == delimeter;
-        var inputTextParts = inputText.Split(delimeter).ToList();
-        for (int i = 0; i < inputTextParts.Count; i++)
+        var inlineDelimeter = '$';
+        var blockDelimeter = '©';
+
+        inputText = inputText.Replace("$$", blockDelimeter.ToString());
+
+        var blockDelimeterSplit = inputText.Split(blockDelimeter).ToList();
+        for (int i = 0; i < blockDelimeterSplit.Count; i++)
         {
-            if (i%2 == 0)
+            var content = blockDelimeterSplit[i];
+            if ((i + 1) % 2 == 0 && i != 0)
             {
-                text += $@"\text{{{inputTextParts[i]}}}";
+                text += $"\n{content}\n";
             }
             else
             {
-                text += inputTextParts[i];
+                var inlineDelimeterSplit = content.Split(inlineDelimeter).ToList();
+                for (int j = 0; j < inlineDelimeterSplit.Count; j++)
+                {
+                    var inlineContent = inlineDelimeterSplit[j];
+                    if ((j + 1) % 2 == 0 && j != 0)
+                    {
+                        text += inlineContent;
+                    }
+                    else
+                    {
+                        text += $@"\text{{{inlineContent}}}";
+                    }
+                }
             }
-            
         }
-       return text;
+        //var startswithFormula = inputText[0] == delimeter;
+        //for (int i = 0; i < inputTextParts.Count; i++)
+        //{
+        //    if (i % 2 == 0)
+        //    {
+        //        text += $@"\text{{{inputTextParts[i]}}}";
+        //    }
+        //    else
+        //    {
+        //        text += inputTextParts[i];
+        //    }
+
+        //}
+        return text;
     }
 
-    private async void answerPressed(bool isRight,int index)
+    private async void answerPressed(bool isRight, int index)
     {
+        questionStarted = false;
         foreach (var answer in Answers)
         {
             answer.Clickable = false;
         }
 
-        var questionId = _currentGame.game.questions[_currentGame.currentQuestion - 1].questionId;
+        var questionId = _currentGame.questions[_currentGame.currentQuestion - 1].questionId;
         var answerIndices = new List<int> { index };
         var givenAnswer = new GivenAnswer
         {
@@ -154,11 +211,11 @@ public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
             questionId = questionId,
             correctlyAnswered = isRight
         };
-        _currentGame.game.givenAnswers.Add(givenAnswer);
+        _currentGame.givenAnswers.Add(givenAnswer);
 
         if (isRight)
         {
-            _currentGame.score += _config.SecondsPerDifficulty[_currentGame.game.difficulty-1];
+            _currentGame.score += _config.SecondsPerDifficulty[_currentGame.difficulty - 1] * (_currentGame.withTimer ? 2 : 1);
             _currentGame.rightAnswerCount++;
             await Task.Delay(1000);
             nextQuestion();
@@ -172,8 +229,8 @@ public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
 
     void updateGameInfo()
     {
-        QuestionNumber = $"{_currentGame.currentQuestion}/{_currentGame.game.questions.Count}";
-        GameTime = $"{_currentGame.timePerQuestion.ToString(@"mm\:ss")}";
+        QuestionNumber = $"{_currentGame.currentQuestion}/{_currentGame.questions.Count}";
+        GameTime = _currentGame.withTimer ? $"{countdown.ToString(@"mm\:ss")}" : "-";
         Score = $"{_currentGame.score}";
     }
 

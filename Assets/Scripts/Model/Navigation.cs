@@ -91,7 +91,7 @@ public class Navigation : MonoBehaviour, INavigation
         }
         lastScreen = _navigationStack.Peek();
         lastScreen.SetActive(true);
-        lastScreen.GetComponent<Animator>().SetTrigger(screenAnimation.ToString());
+        //lastScreen.GetComponent<Animator>().SetTrigger(screenAnimation.ToString());
         return lastScreen;
     }
 

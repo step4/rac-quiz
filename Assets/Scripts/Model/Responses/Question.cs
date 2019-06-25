@@ -7,6 +7,7 @@ public class Question
     public string questionId;
     public string questionText;
     public List<Answer> answers;
-    public bool hasLatex;
+    public int difficulty;
+    public int customTime;
 }
 

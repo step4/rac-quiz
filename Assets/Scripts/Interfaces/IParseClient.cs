@@ -7,13 +7,14 @@ public interface IParseClient
     Task<List<Faculty>> GetStudyPrograms();
     Task SetStudyProgram(string studyProgramId);
     Task<StudyProgram> GetStudyProgram(string studyProgramId);
-    Task<PlayerConfig> GetUserMe();
+    Task<PlayerInfo> GetUserMe();
+    Task SetUserMe(string playerName, string studyProgramId, string avatarUrl);
 
     Task<List<Course>> GetCourses(string studyProgramId);
 
-    Task<Game> CreateGame(int numberOfQuestions, int difficulty, bool withTimer, string courseId);
+    Task<Game> CreateGame( int numberOfQuestions, int difficulty, bool withTimer, string courseId);
     Task FinishGame(string gameId, List<GivenAnswer> givenAnswers);
 
-    Task<UserResponse> Register(string username, string password, string email);
-    Task<UserResponse> Login(string username, string password);
+    Task<UserResponse> Register(string username, string password, string email, string installationId);
+    Task<UserResponse> Login(string username, string password, string installationId);
 }

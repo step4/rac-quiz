@@ -110,7 +110,7 @@ public class RegisterPopupViewModel : MonoBehaviour, INotifyPropertyChanged
         }
         try
         {
-            var user = await _parseClient.Register(Username, Password,Email);
+            var user = await _parseClient.Register(Username, Password,Email, _config._installationId);
             _config.SessionToken = user.sessionToken;
             _parseClient.SetSessionToken(user.sessionToken);
             _navigation.Pop(ScreenAnimation.Close);

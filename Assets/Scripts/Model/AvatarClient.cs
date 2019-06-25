@@ -12,6 +12,11 @@ public class AvatarClient : MonoBehaviour, IAvatarClient
         return await avataaars.GetImage(width,config);
     }
 
+    public async Task<(byte[], string)> GetAvatar(string url)
+    {
+        return await avataaars.GetImage(url);
+    }
+
     public Dictionary<string, List<string>> GetEnums()
     {
         return avataaars.GetEnums();
