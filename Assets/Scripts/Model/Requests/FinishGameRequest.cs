@@ -6,5 +6,6 @@ class FinishGameRequest
     public string gameId;
     public List<GivenAnswer> givenAnswers;
     public int rightAnswerCount;
+    public int score;
 }
 

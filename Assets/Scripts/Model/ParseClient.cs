@@ -97,9 +97,9 @@ public class ParseClient : MonoBehaviour, IParseClient
     {
         var getMeJson = await _postWithEmptyString("functions/get_me");
         return _deserializeParseObject<ParseObjectResponse<PlayerInfo>, PlayerInfo>(getMeJson);
-       
+
     }
-    public async Task SetUserMe(string playerName,string studyProgramId, string avatarUrl )
+    public async Task SetUserMe(string playerName, string studyProgramId, string avatarUrl)
     {
         var playerInfo = new PlayerInfo { avatarUrl = avatarUrl, playerName = playerName, studyProgramId = studyProgramId };
         var json = JsonUtility.ToJson(playerInfo);
@@ -135,9 +135,9 @@ public class ParseClient : MonoBehaviour, IParseClient
         return _deserializeParseObject<ParseObjectResponse<Game>, Game>(gameJson);
     }
 
-    public async Task FinishGame(string gameId, List<GivenAnswer> givenAnswers, int rightAnswerCount)
+    public async Task FinishGame(string gameId, List<GivenAnswer> givenAnswers, int rightAnswerCount, int score)
     {
-        var finishGameRequest = new FinishGameRequest { givenAnswers = givenAnswers, gameId = gameId, rightAnswerCount=rightAnswerCount };
+        var finishGameRequest = new FinishGameRequest { givenAnswers = givenAnswers, gameId = gameId, rightAnswerCount = rightAnswerCount, score = score };
         var json = JsonUtility.ToJson(finishGameRequest);
 
         await _postWithData("functions/finish_game", json);

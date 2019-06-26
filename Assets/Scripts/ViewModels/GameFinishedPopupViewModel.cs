@@ -50,7 +50,8 @@ public class GameFinishedPopupViewModel : MonoBehaviour, INotifyPropertyChanged
         var gameId = _finishedGame.gameId;
         var givenAnswers = _finishedGame.givenAnswers;
         var rightAnswerCount = _finishedGame.rightAnswerCount;
-        await _parseClient.FinishGame(gameId, givenAnswers, rightAnswerCount);
+        var score = _finishedGame.score;
+        await _parseClient.FinishGame(gameId, givenAnswers, rightAnswerCount, score);
     }
 
     private void OnDisable()
