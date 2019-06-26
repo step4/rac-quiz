@@ -135,9 +135,9 @@ public class ParseClient : MonoBehaviour, IParseClient
         return _deserializeParseObject<ParseObjectResponse<Game>, Game>(gameJson);
     }
 
-    public async Task FinishGame(string gameId, List<GivenAnswer> givenAnswers)
+    public async Task FinishGame(string gameId, List<GivenAnswer> givenAnswers, int rightAnswerCount)
     {
-        var finishGameRequest = new FinishGameRequest { givenAnswers = givenAnswers, gameId = gameId };
+        var finishGameRequest = new FinishGameRequest { givenAnswers = givenAnswers, gameId = gameId, rightAnswerCount=rightAnswerCount };
         var json = JsonUtility.ToJson(finishGameRequest);
 
         await _postWithData("functions/finish_game", json);
