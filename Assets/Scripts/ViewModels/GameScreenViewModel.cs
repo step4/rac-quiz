@@ -33,7 +33,7 @@ public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     private Sprite _wrongAnswerSprite = default;
 
     [SerializeField]
-    private Animator timerAC=default;
+    private Animator timerAC = default;
 
 
     private void Awake()
@@ -59,16 +59,22 @@ public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     }
 
     private TimeSpan countdown = TimeSpan.FromSeconds(0);
+    private TimeSpan elapsedTime = TimeSpan.FromSeconds(0);
     private bool questionStarted = false;
     private void Update()
     {
-        if (_currentGame.withTimer && questionStarted)
+        if (questionStarted)
         {
-            countdown = countdown.Subtract(TimeSpan.FromSeconds(Time.deltaTime));
-            if (countdown < TimeSpan.FromSeconds(0))
+            elapsedTime = elapsedTime.Add(TimeSpan.FromSeconds(Time.deltaTime));
+
+            if (_currentGame.withTimer)
             {
-                questionStarted = false;
-                timeElapsed();
+                countdown = countdown.Subtract(TimeSpan.FromSeconds(Time.deltaTime));
+                if (countdown < TimeSpan.FromSeconds(0))
+                {
+                    questionStarted = false;
+                    timeElapsed();
+                }
             }
         }
         updateGameInfo();
@@ -76,8 +82,27 @@ public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
 
     private async void timeElapsed()
     {
+        foreach (var answer in Answers)
+        {
+            answer.Clickable = false;
+        }
+
+
         timerAC.SetTrigger("TimeIsUp");
         await Task.Delay(1500);
+
+        var questionId = _currentGame.questions[_currentGame.currentQuestion - 1].questionId;
+        var answerIndices = new List<int>();
+        var givenAnswer = new GivenAnswer
+        {
+            answerIndices = answerIndices,
+            questionId = questionId,
+            correctlyAnswered = false,
+            elapsedSeconds = -1
+        };
+        _currentGame.givenAnswers.Add(givenAnswer);
+
+
         nextQuestion();
     }
 
@@ -104,13 +129,15 @@ public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
 
     private void startQuestion()
     {
+        elapsedTime = TimeSpan.FromSeconds(0);
+        questionStarted = true;
+
         if (!_currentGame.withTimer) return;
 
         var currentQuestion = _currentGame.questions[_currentGame.currentQuestion - 1];
 
         countdown = currentQuestion.customTime == 0 ? _currentGame.timePerQuestion : TimeSpan.FromSeconds(currentQuestion.customTime);
-        print(countdown);
-        questionStarted = true;
+        
     }
 
     private void fillQuestionAndAnswers()
@@ -209,7 +236,8 @@ public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
         {
             answerIndices = answerIndices,
             questionId = questionId,
-            correctlyAnswered = isRight
+            correctlyAnswered = isRight,
+            elapsedSeconds = elapsedTime.Seconds
         };
         _currentGame.givenAnswers.Add(givenAnswer);
 
@@ -230,7 +258,7 @@ public class GameScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     void updateGameInfo()
     {
         QuestionNumber = $"{_currentGame.currentQuestion}/{_currentGame.questions.Count}";
-        GameTime = _currentGame.withTimer ? $"{countdown.ToString(@"mm\:ss")}" : "-";
+        GameTime = _currentGame.withTimer ? $"{countdown.ToString(@"mm\:ss")}" : $"{elapsedTime.ToString(@"mm\:ss")}";
         Score = $"{_currentGame.score}";
     }
 
