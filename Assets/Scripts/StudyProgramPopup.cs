@@ -59,6 +59,7 @@ public class StudyProgramPopup : MonoBehaviour
             studyProgramsGridLayout.spacing = new Vector2 { x = GridSpace, y = GridSpace };
             studyProgramsGridLayout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
             studyProgramsGridLayout.constraintCount = GridColumns;
+            studyProgramsGridLayout.childAlignment = TextAnchor.UpperCenter;
             studyProgramsGridLayout.padding = new RectOffset(LeftPadding, 0, 0, 0);
 
             textComponent.text = faculty.name;
