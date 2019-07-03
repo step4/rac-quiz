@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f82d15bae8da2e7418ea3f2d467c7fc1, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
-  ParseClient: {fileID: 6946594993642158355, guid: b20d4da967f56d340aac4c0462ff2e79,
-    type: 3}
   StudyProgram: 
   StudyProgramId: 
   StudyProgramShort: 

@@ -1,0 +1,299 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf6828ab15203f9499b36e35d7100999, type: 3}
+  m_Name: TranslationAvataaars
+  m_EditorClassIdentifier: 
+  translation:
+  - original: TopType
+    translated: Kopfbedeckung
+  - original: NoHair
+    translated: Keine Haare
+  - original: Eyepatch
+    translated: Augenklappe
+  - original: Hat
+    translated: Hut
+  - original: Hijab
+    translated: Hijab
+  - original: Turban
+    translated: Turban
+  - original: WinterHat1
+    translated: Winter Hut 1
+  - original: WinterHat2
+    translated: Winter Hut 2
+  - original: WinterHat3
+    translated: Winter Hut 3
+  - original: LongHairBigHair
+    translated: Lange Haare mit Volumen
+  - original: LongHairBob
+    translated: Bob
+  - original: LongHairBun
+    translated: Bun
+  - original: LongHairCurly
+    translated: Kurze Locken
+  - original: LongHairCurvy
+    translated: Gewellte Haare
+  - original: LongHairDreads
+    translated: Dreadlocks
+  - original: LongHairFrida
+    translated: Frida
+  - original: LongHairFro
+    translated: Afro
+  - original: LongHairFroBand
+    translated: Afro bin Stirnband
+  - original: LongHairNotTooLong
+    translated: Mittellange Haare
+  - original: LongHairShavedSides
+    translated: Lange Haare, rasierte Seiten
+  - original: LongHairMiaWallace
+    translated: Mia Wallace
+  - original: LongHairStraight
+    translated: Lange glatte Haare
+  - original: LongHairStraight2
+    translated: Lange glatte Haare 2
+  - original: LongHairStraightStrand
+    translated: Lange glatte Haare 3
+  - original: ShortHairDreads01
+    translated: Sehr kurze Dreadlocks
+  - original: ShortHairDreads02
+    translated: Kurze Dreadlocks
+  - original: ShortHairFrizzle
+    translated: Frizzle
+  - original: ShortHairShaggyMullet
+    translated: Shaggy Mullet
+  - original: ShortHairShortCurly
+    translated: Kurze Locken
+  - original: ShortHairShortFlat
+    translated: Kurzhaarschnitt
+  - original: ShortHairShortRound
+    translated: Kurzhaarschnitt 2
+  - original: ShortHairShortWaved
+    translated: Kurze Welle
+  - original: ShortHairSides
+    translated: Halbglatze
+  - original: ShortHairTheCaesar
+    translated: Maschinenschnitt
+  - original: ShortHairTheCaesarSidePart
+    translated: Maschinenschnitt 2
+  - original: AccessoriesType
+    translated: Accessories
+  - original: Blank
+    translated: Keine
+  - original: Kurt
+    translated: Stylische Sonnenbrille
+  - original: Prescription01
+    translated: "Wei\xDFe Brille"
+  - original: Prescription02
+    translated: Schwarze Brille
+  - original: Round
+    translated: Schwarze Brille Rund
+  - original: Sunglasses
+    translated: Schwarze Sonnenbrille
+  - original: Wayfarers
+    translated: Schwarze Sonnenbrille 2
+  - original: HairColor
+    translated: Haarfarbe
+  - original: Auburn
+    translated: Rotbraun
+  - original: Black
+    translated: Schwarz
+  - original: Blonde
+    translated: Blond
+  - original: BlondeGolden
+    translated: Goldblond
+  - original: Brown
+    translated: Braun
+  - original: BrownDark
+    translated: Dunkelbraun
+  - original: PastelPink
+    translated: Pink
+  - original: Platinum
+    translated: Hellblond
+  - original: Red
+    translated: Rot
+  - original: SilverGray
+    translated: "Wei\xDF"
+  - original: HatColor
+    translated: Farbe Kopfbedeckung
+  - original: Black
+    translated: Schwarz
+  - original: Blue01
+    translated: Hellblaue
+  - original: Blue02
+    translated: Blau
+  - original: Blue03
+    translated: Dunkelblau
+  - original: Gray01
+    translated: Hellgrau
+  - original: Gray02
+    translated: Grau
+  - original: Heather
+    translated: Dunkelgrau
+  - original: PastelBlue
+    translated: Pastelblau
+  - original: PastelGreen
+    translated: "Pastelgr\xFCn"
+  - original: PastelOrange
+    translated: Pastelorange
+  - original: PastelRed
+    translated: Pastelrot
+  - original: PastelYellow
+    translated: Pastelgelb
+  - original: Pink
+    translated: Pink
+  - original: Red
+    translated: Rot
+  - original: White
+    translated: "Wei\xDF"
+  - original: FacialHairType
+    translated: Gesichtsbehaarung
+  - original: BeardMedium
+    translated: Vollbart
+  - original: BeardLight
+    translated: Leichter Vollbart
+  - original: MoustacheFancy
+    translated: Moustache
+  - original: MoustacheMagnum
+    translated: Dicker Moustache
+  - original: FacialHairColor
+    translated: Farbe Gesichtsbehaarung
+  - original: ClotheType
+    translated: Kleidung
+  - original: BlazerShirt
+    translated: Blazer
+  - original: BlazerSweater
+    translated: Blazer mit Sweater
+  - original: CollarSweater
+    translated: Hemd und Sweater
+  - original: GraphicShirt
+    translated: T-Shirt mit Druck
+  - original: Hoodie
+    translated: Hoodie
+  - original: Overall
+    translated: Overall
+  - original: ShirtCrewNeck
+    translated: T-Shirt
+  - original: ShirtScoopNeck
+    translated: T-Shirt mit breitem Auschnitt
+  - original: ShirtVNeck
+    translated: T-Shirt mit V-Auschnitt
+  - original: ClotheColor
+    translated: Farbe Kleidung
+  - original: GraphicType
+    translated: Druckmotiv
+  - original: Bat
+    translated: Fledermaus
+  - original: Cumbia
+    translated: Cumbia
+  - original: Deer
+    translated: Hirsch
+  - original: Diamond
+    translated: Diamant
+  - original: Hola
+    translated: Hola
+  - original: Pizza
+    translated: Pizza
+  - original: Resist
+    translated: Resist
+  - original: Selena
+    translated: Selena
+  - original: Bear
+    translated: "B\xE4r"
+  - original: SkullOutline
+    translated: Totenkopf 1
+  - original: Skull
+    translated: Totenkopf 2
+  - original: EyeType
+    translated: Augen
+  - original: Close
+    translated: Geschlossen
+  - original: Cry
+    translated: "Tr\xE4ne"
+  - original: Default
+    translated: Knopfaugen
+  - original: Dizzy
+    translated: Schwindlich
+  - original: EyeRoll
+    translated: Verdrehte Augen
+  - original: Happy
+    translated: Happy
+  - original: Hearts
+    translated: Herzen
+  - original: Side
+    translated: Zur Seite
+  - original: Squint
+    translated: blinzelnd
+  - original: Surprised
+    translated: "\xFCberrascht"
+  - original: Wink
+    translated: Zwinker
+  - original: WinkWacky
+    translated: ZwinkerZwinker
+  - original: EyebrowType
+    translated: Augenbrauen
+  - original: Angry
+    translated: "w\xFCtend 1"
+  - original: AngryNatural
+    translated: "w\xFCtend 2"
+  - original: Default
+    translated: Normal
+  - original: DefaultNatural
+    translated: Normal 2
+  - original: FlatNatural
+    translated: Gerade
+  - original: RaisedExcited
+    translated: "\xFCberrascht"
+  - original: RaisedExcitedNatural
+    translated: "\xFCberrascht 2"
+  - original: SadConcerned
+    translated: traurig 1
+  - original: SadConcernedNatural
+    translated: traurig 2
+  - original: UnibrowNatural
+    translated: Unibraue
+  - original: UpDown
+    translated: Hoch runter
+  - original: UpDownNatural
+    translated: Hoch runter 2
+  - original: MouthType
+    translated: Mund
+  - original: Concerned
+    translated: betroffen
+  - original: Default
+    translated: freuend
+  - original: Disbelief
+    translated: Skeptisch
+  - original: Eating
+    translated: essend
+  - original: Grimace
+    translated: Grimasse
+  - original: Sad
+    translated: traurig
+  - original: ScreamOpen
+    translated: schreiend
+  - original: Serious
+    translated: ernst
+  - original: Smile
+    translated: lachend
+  - original: Tongue
+    translated: mit Zunge
+  - original: Twinkle
+    translated: "l\xE4chelnd"
+  - original: Vomit
+    translated: Kotzend
+  - original: SkinColor
+    translated: Hautfarbe
+  - original: Tanned
+    translated: "gebr\xE4unt"
+  - original: Yellow
+    translated: Gelb
+  - original: Pale
+    translated: blass
