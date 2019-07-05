@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System;
 
 [Binding]
-public class AvatarScreenViewModel : MonoBehaviour, INotifyPropertyChanged
+public class AvatarPopupViewModel : MonoBehaviour, INotifyPropertyChanged
 {
     [SerializeField]
     private GameObject ParseClientGO = default;
@@ -28,7 +28,7 @@ public class AvatarScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     [SerializeField]
     private ConfigSO _config = default;
 
-
+    private string currentUrl;
     private void Awake()
     {
         _parseClient = ParseClientGO.GetComponent<IParseClient>();
@@ -89,7 +89,13 @@ public class AvatarScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     {
         try
         {
-           
+            _navigation.PushPopup("LoadingPopup", ScreenAnimation.Fade);
+            await Task.Delay(500);
+            await _parseClient.SetUserMe(_playerConfig.PlayerName, _playerConfig.StudyProgramId, currentUrl);
+            _playerConfig.Avatar = AvatarSprite;
+            _playerConfig.AvatarUrl = currentUrl;
+            _navigation.PopPopup(ScreenAnimation.Close);
+            _navigation.SetRoot("UserScreen",ScreenAnimation.Fade);
         }
         catch (System.Exception ex)
         {
@@ -138,6 +144,7 @@ public class AvatarScreenViewModel : MonoBehaviour, INotifyPropertyChanged
     {
         var width = 200;
         var (imgData, url) = await _avatarClient.GetAvatar(width,picks);
+        currentUrl = url;
         var height = imgData.Length / width;
         Texture2D tex = new Texture2D(width, height);
         ImageConversion.LoadImage(tex, imgData);

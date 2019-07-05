@@ -115,9 +115,9 @@ public class UserScreenViewModel : MonoBehaviour, INotifyPropertyChanged
 
 
     [Binding]
-    public async Task RandomAvatar()
+    public async Task EditAvatar()
     {
-        await SetAvatar("");
+        _navigation.PushPopup("AvatarPopup", ScreenAnimation.ModalCenter);
     }
 
     public async Task SetAvatar(string avatarUrl)
